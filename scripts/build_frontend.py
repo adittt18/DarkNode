@@ -2906,7 +2906,7 @@ html_template = """<!DOCTYPE html>
     }
 </style>
 </head>
-<body class="authenticated">
+<body>
 
   <section id="auth-gate" aria-label="Restricted DarkNode access">
     <div class="auth-shell">
@@ -2926,7 +2926,11 @@ html_template = """<!DOCTYPE html>
         
         <div class="auth-hud-bottom">LIVE RISK SIGNALS</div>
       </div>
-      <div class="auth-form-panel"><div class="auth-form-wrap"><h2 class="auth-form-heading" id="auth-form-title">Sign in to DarkNode</h2><p class="auth-form-subheading" id="auth-form-subtitle">Use your approved employee identity to enter the intelligence console.</p><div class="auth-tabs"><button class="auth-tab active" type="button" id="auth-signin-tab">SIGN IN</button><button class="auth-tab" type="button" id="auth-request-tab">REQUEST ACCESS</button></div><form id="auth-form" novalidate><label class="auth-field">Work email<input id="auth-email" type="email" autocomplete="username" placeholder="name@approved-organization.gov" required></label><label class="auth-field">Employee ID<input id="auth-employee-id" type="text" autocomplete="off" placeholder="DN-AML-0042" required></label><label class="auth-field">Authorized sector<select id="auth-sector"><option value="AML">AML / Financial Crime</option><option value="FRAUD">Fraud Intelligence</option><option value="RISK">Risk &amp; Compliance</option><option value="FIU">Financial Intelligence Unit</option></select></label><label class="auth-field" id="auth-password-field">Passphrase<input id="auth-password" type="password" autocomplete="current-password" placeholder="Enter your secure passphrase" required></label><div class="auth-request-fields" id="auth-request-fields"><label class="auth-field">Organization<input id="auth-organization" type="text" placeholder="Your institution or agency"></label><label class="auth-field">Reason for access<input id="auth-access-reason" type="text" placeholder="Describe your approved operational need"></label></div><button class="auth-submit" id="auth-submit" type="submit">VERIFY EMPLOYEE ACCESS</button><div class="auth-message" id="auth-message" role="status" aria-live="polite"></div></form><p class="auth-note">Access is limited to approved personnel and selected operational sectors. All sessions are audited.</p></div></div>
+      <div class="auth-form-panel"><div class="auth-form-wrap"><h2 class="auth-form-heading" id="auth-form-title">Sign in to DarkNode</h2><p class="auth-form-subheading" id="auth-form-subtitle">Use your approved employee identity to enter the intelligence console.</p><div class="auth-tabs"><button class="auth-tab active" type="button" id="auth-signin-tab">SIGN IN</button><button class="auth-tab" type="button" id="auth-request-tab">REQUEST ACCESS</button></div><form id="auth-form" novalidate><label class="auth-field">Work email<input id="auth-email" type="email" autocomplete="username" placeholder="name@approved-organization.gov" required></label><label class="auth-field">Employee ID<input id="auth-employee-id" type="text" autocomplete="off" placeholder="DN-AML-0042" required></label><label class="auth-field">Authorized sector<select id="auth-sector"><option value="AML">AML / Financial Crime</option><option value="FRAUD">Fraud Intelligence</option><option value="RISK">Risk &amp; Compliance</option><option value="FIU">Financial Intelligence Unit</option></select></label><label class="auth-field" id="auth-password-field">Passphrase<input id="auth-password" type="password" autocomplete="current-password" placeholder="Enter your secure passphrase" required></label><div class="auth-request-fields" id="auth-request-fields"><label class="auth-field">Organization<input id="auth-organization" type="text" placeholder="Your institution or agency"></label><label class="auth-field">Reason for access<input id="auth-access-reason" type="text" placeholder="Describe your approved operational need"></label></div><button class="auth-submit" id="auth-submit" type="submit">VERIFY EMPLOYEE ACCESS</button><div style="display: flex; gap: 8px; margin-top: 14px;">
+              <button type="button" class="btn btn-outline" style="width: 100%; height: 32px; font-size: 11px; color: var(--yellow-primary); border-color: var(--yellow-border);" onclick="quickFillDemoAuth()">
+                ⚡ Autofill Demo Credentials
+              </button>
+            </div><div class="auth-message" id="auth-message" role="status" aria-live="polite"></div></form><p class="auth-note">Access is limited to approved personnel and selected operational sectors. All sessions are audited.</p></div></div>
     </div>
   </section>
 
@@ -7606,7 +7610,7 @@ html_template = """<!DOCTYPE html>
       "usr_106,merch_gamma,dev_903,192.168.1.10,4850.00,1698472800",
       "usr_107,merch_delta,dev_904,172.16.0.8,4920.00,1698473200",
       "usr_108,merch_delta,dev_904,172.16.0.8,4880.00,1698473600"
-    ].join("\n");
+    ].join(String.fromCharCode(10));
 
     function downloadSampleCsv() {
       const blob = new Blob([SAMPLE_CSV_CONTENT], { type: "text/csv;charset=utf-8;" });
@@ -7627,7 +7631,7 @@ html_template = """<!DOCTYPE html>
 
       const display = document.getElementById("tabular-filename-display");
       if (display) {
-        display.innerHTML = `<span style="color:var(--yellow-primary); font-weight:700;">darknode_sample_transactions.csv</span> (Sample Table Loaded)`;
+        display.innerHTML = '<span style="color:var(--yellow-primary); font-weight:700;">darknode_sample_transactions.csv</span> (Sample Table Loaded)';
       }
       showToast("Loaded sample AML transaction table into input.", "Sample Table", "info");
     }
@@ -7640,7 +7644,6 @@ html_template = """<!DOCTYPE html>
       const display = document.getElementById("tabular-filename-display");
 
       if (ext === 'sql') {
-        // Parse SQL INSERT INTO statements into CSV data
         try {
           const text = await file.text();
           const parsedCsv = parseSqlInsertToCsv(text);
@@ -7648,7 +7651,7 @@ html_template = """<!DOCTYPE html>
             const blob = new Blob([parsedCsv], { type: "text/csv" });
             selectedTabularFile = new File([blob], file.name.replace(/\.sql$/i, '.csv'), { type: "text/csv" });
             if (display) {
-              display.innerHTML = `<span style="color:var(--yellow-primary); font-weight:700;">${file.name}</span> (Parsed SQL to Table)`;
+              display.innerHTML = '<span style="color:var(--yellow-primary); font-weight:700;">' + file.name + '</span> (Parsed SQL to Table)';
             }
             showToast("Successfully parsed SQL statements into table format.", "SQL Processed", "info");
             return;
@@ -7661,33 +7664,29 @@ html_template = """<!DOCTYPE html>
       selectedTabularFile = file;
       if (display) {
         const sizeMb = (file.size / (1024 * 1024)).toFixed(2);
-        display.innerHTML = `<span style="color:var(--yellow-primary); font-weight:700;">${file.name}</span> (${sizeMb} MB &bull; .${ext.toUpperCase()})`;
+        display.innerHTML = '<span style="color:var(--yellow-primary); font-weight:700;">' + file.name + '</span> (' + sizeMb + ' MB)';
       }
     }
 
     function parseSqlInsertToCsv(sqlText) {
-      // Basic parser for INSERT INTO ... VALUES (...)
-      const valueMatches = sqlText.match(/VALUES\s*\(([\s\S]*?)\);/i) || sqlText.match(/\(([\s\S]*?)\)/g);
-      if (!valueMatches) return null;
-
-      // Extract rows
       const rows = [];
       const lines = sqlText.split(';');
-      for (const line of lines) {
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
         const match = line.match(/INSERT\s+INTO\s+[^\(]*\(([^\)]+)\)\s*VALUES\s*([\s\S]*)/i);
         if (match) {
           const cols = match[1].split(',').map(c => c.trim().replace(/[`"\[\]]/g, ''));
           if (rows.length === 0) rows.push(cols.join(','));
           const valsMatch = match[2].match(/\(([^\)]+)\)/g);
           if (valsMatch) {
-            for (const vGroup of valsMatch) {
-              const cleanVals = vGroup.replace(/[\(\)]/g, '').split(',').map(v => v.trim().replace(/^['"]|['"]$/g, ''));
+            for (let j = 0; j < valsMatch.length; j++) {
+              const cleanVals = valsMatch[j].replace(/[\(\)]/g, '').split(',').map(v => v.trim().replace(/^['"]|['"]$/g, ''));
               rows.push(cleanVals.join(','));
             }
           }
         }
       }
-      return rows.length > 1 ? rows.join('\n') : null;
+      return rows.length > 1 ? rows.join(String.fromCharCode(10)) : null;
     }
 
     async function submitTabularIngestion() {
@@ -7801,8 +7800,7 @@ html_template = """<!DOCTYPE html>
           `;
         }
       }
-    }
-  </script>
+    }</script>
 </body>
 </html>
 """
