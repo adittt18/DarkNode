@@ -2955,6 +2955,11 @@ html_template = """<!DOCTYPE html>
 
     <!-- Controls -->
     <div class="header-actions">
+      <!-- Ingest Tabular Button (POST /analyze-tabular) -->
+      <button class="btn btn-outline" id="header-ingest-tabular-btn" onclick="openTabularModal()" title="Ingest Tabular Data (CSV / Excel) via GNN MPNN Pipeline (POST /analyze-tabular)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+        Ingest Tabular
+      </button>
       <!-- Benchmark Modal Button -->
       <button class="btn btn-outline" onclick="openBenchmarkModal()" title="View Empirical Model Benchmarks vs Bank Rules">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
@@ -3037,6 +3042,9 @@ html_template = """<!DOCTYPE html>
         </button>
         <button class="dataset-tab-btn" id="dataset-tab-real" onclick="switchDatasetSection('real')" title="Real AML Dataset: Source-Verified Banks, Devices & Regulatory Typologies">
           Real AML Data
+        </button>
+        <button class="dataset-tab-btn" id="dataset-tab-tabular" onclick="switchDatasetSection('tabular')" style="display: none;" title="Ingested Tabular Dataset: Fraud rings extracted from uploaded transaction table">
+          Tabular (<span id="tabular-rings-count">0</span>)
         </button>
       </div>
 
@@ -3579,6 +3587,26 @@ html_template = """<!DOCTYPE html>
               <button class="btn btn-outline" id="settings-new-graph-btn" style="width: 100%; height: 34px;" onclick="closeSettingsModal(); generateNewGraph();">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
                 Synthesize New Graph Batch
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 6b: Tabular File Ingestion (POST /analyze-tabular) -->
+          <div class="settings-card" id="setting-card-tabular" data-category="ingest">
+            <div class="settings-card-head">
+              <span class="settings-card-title">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                Tabular File Ingestion
+              </span>
+              <span class="badge-pill" style="font-size: 9px;">POST /analyze-tabular</span>
+            </div>
+            <div style="font-size: 11px; color: var(--text-muted);">
+              Ingest raw transaction tables (.csv, .xlsx, .xls) to construct a heterogeneous graph and detect fraud rings via MPNN inference.
+            </div>
+            <div>
+              <button class="btn btn-outline" style="width: 100%; height: 34px;" onclick="closeSettingsModal(); openTabularModal();">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                Open Tabular Ingestion Portal
               </button>
             </div>
           </div>
@@ -4172,7 +4200,9 @@ html_template = """<!DOCTYPE html>
     const ACTUAL_RINGS = __ACTUAL_RINGS_JSON__;
     const REAL_AML_RINGS = __REAL_AML_RINGS_JSON__;
     const FALLBACK_RINGS = ACTUAL_RINGS;
-    let currentDataset = 'actual'; // 'actual' (default) or 'real'
+    let currentDataset = 'actual';
+    let TABULAR_RINGS = [];
+    let selectedTabularFile = null; // 'actual' (default) or 'real'
     allRings = [...ACTUAL_RINGS];
 
     function switchDatasetSection(type) {
@@ -4186,7 +4216,17 @@ html_template = """<!DOCTYPE html>
         tabReal.classList.toggle("active", type === 'real');
       }
 
-      if (type === 'real') {
+      const tabTabular = document.getElementById("dataset-tab-tabular");
+      if (tabActual && tabReal && tabTabular) {
+        tabActual.classList.toggle("active", type === 'actual');
+        tabReal.classList.toggle("active", type === 'real');
+        tabTabular.classList.toggle("active", type === 'tabular');
+      }
+
+      if (type === 'tabular') {
+        allRings = [...TABULAR_RINGS];
+        showToast(`Switched to Ingested Tabular Dataset: ${allRings.length} rings detected`, "Tabular Ingestion", "success");
+      } else if (type === 'real') {
         allRings = [...REAL_AML_RINGS];
         showToast("Switched to Real AML Data: 12 source-verified syndicates with FATF/FinCEN typologies", "Real AML Dataset", "success");
       } else {
@@ -6636,44 +6676,63 @@ html_template = """<!DOCTYPE html>
 
       // 9. Rings & Orbiting dot
       function drawRings(t) {
-        const cx = 0.485 * W;
+        // Left-aligned disc centered around headline copy (x ≈ 0.36*W, y ≈ 0.472*H)
+        const cx = 0.36 * W;
         const cy = 0.472 * H;
         const pulse = 0.88 + 0.12 * Math.sin(0.6 * t);
 
+        const rOuter = 244 * s;
+        const rInner = 212 * s;
+        const dotR = 212 * s;
+
         ctx.save();
-        // Outer soft band: radius 244s, line width 58s, yellow alpha 0.045
+        // Strictly clip above the ground line (gy) so the disc NEVER dips or bleeds into the road/ground area
         ctx.beginPath();
-        ctx.arc(cx, cy, 244 * s, 0, Math.PI * 2);
-        ctx.lineWidth = 58 * s;
+        ctx.rect(0, 0, W, gy - 2 * s);
+        ctx.clip();
+
+        // Subtle atmospheric background tint inside the disc
+        ctx.beginPath();
+        ctx.arc(cx, cy, rInner, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(255, 210, 31, " + (0.02 * pulse) + ")";
+        ctx.fill();
+
+        // Outer soft glow band
+        ctx.beginPath();
+        ctx.arc(cx, cy, rOuter, 0, Math.PI * 2);
+        ctx.lineWidth = 48 * s;
         ctx.strokeStyle = "rgba(255, 210, 31, " + (0.045 * pulse) + ")";
         ctx.stroke();
 
-        // Inner ring: radius 212s, line width 1.5s, alpha 0.13
+        // Inner golden perimeter ring
         ctx.beginPath();
-        ctx.arc(cx, cy, 212 * s, 0, Math.PI * 2);
+        ctx.arc(cx, cy, rInner, 0, Math.PI * 2);
         ctx.lineWidth = 1.5 * s;
-        ctx.strokeStyle = "rgba(255, 210, 31, " + (0.13 * pulse) + ")";
+        ctx.strokeStyle = "rgba(255, 210, 31, " + (0.14 * pulse) + ")";
         ctx.stroke();
 
-        // Orbiting dot: radius 255s, one turn per 6s, starting angle 0.204 rad (fast orbit)
+        // Orbiting dot: Full 360° CIRCULAR continuous orbit around the disc (6s period)
         const dotAngle = 0.204 + (t / 6) * 2 * Math.PI;
-        const dotX = cx + 255 * s * Math.cos(dotAngle);
-        const dotY = cy + 255 * s * Math.sin(dotAngle);
+        const dotX = cx + dotR * Math.cos(dotAngle);
+        const dotY = cy + dotR * Math.sin(dotAngle);
 
-        // Radial glow 12s
-        const glow = ctx.createRadialGradient(dotX, dotY, 0, dotX, dotY, 12 * s);
-        glow.addColorStop(0, "rgba(255, 210, 31, 0.55)");
+        // Radial glow on orbiting dot
+        const glowRadius = 14 * s;
+        const glow = ctx.createRadialGradient(dotX, dotY, 0, dotX, dotY, glowRadius);
+        glow.addColorStop(0, "rgba(255, 210, 31, 0.75)");
+        glow.addColorStop(0.4, "rgba(255, 210, 31, 0.35)");
         glow.addColorStop(1, "rgba(255, 210, 31, 0)");
         ctx.fillStyle = glow;
         ctx.beginPath();
-        ctx.arc(dotX, dotY, 12 * s, 0, Math.PI * 2);
+        ctx.arc(dotX, dotY, glowRadius, 0, Math.PI * 2);
         ctx.fill();
 
-        // Solid dot core: radius 3.2s
+        // Solid dot core: radius 3.5s
         ctx.fillStyle = "#FFD21F";
         ctx.beginPath();
-        ctx.arc(dotX, dotY, 3.2 * s, 0, Math.PI * 2);
+        ctx.arc(dotX, dotY, 3.5 * s, 0, Math.PI * 2);
         ctx.fill();
+
         ctx.restore();
       }
 
@@ -7351,6 +7410,175 @@ html_template = """<!DOCTYPE html>
         document.body.classList.remove("authenticated");
       }
     });
+  
+    // ==========================================
+    // TABULAR INGESTION (POST /analyze-tabular)
+    // ==========================================
+    function openTabularModal() {
+      const modal = document.getElementById("tabular-modal");
+      const backdrop = document.getElementById("tabular-modal-backdrop");
+      if (modal && backdrop) {
+        modal.classList.add("open");
+        backdrop.classList.add("open");
+      }
+    }
+
+    function closeTabularModal() {
+      const modal = document.getElementById("tabular-modal");
+      const backdrop = document.getElementById("tabular-modal-backdrop");
+      if (modal && backdrop) {
+        modal.classList.remove("open");
+        backdrop.classList.remove("open");
+      }
+    }
+
+    function handleTabularFileSelect(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      selectedTabularFile = file;
+      const display = document.getElementById("tabular-filename-display");
+      if (display) {
+        const sizeMb = (file.size / (1024 * 1024)).toFixed(2);
+        display.innerHTML = `<span style="color:var(--yellow-primary); font-weight:700;">${file.name}</span> (${sizeMb} MB)`;
+      }
+    }
+
+    function loadDemoTabularCsv() {
+      const csvData = [
+        "user_id,merchant_id,device_id,shared_ip,amount,timestamp",
+        "usr_101,merch_alpha,dev_901,192.168.1.10,4800.0,1698471000",
+        "usr_102,merch_alpha,dev_901,192.168.1.10,4950.0,1698471300",
+        "usr_103,merch_beta,dev_902,192.168.1.10,4900.0,1698471600",
+        "usr_104,merch_beta,dev_902,10.0.4.15,120.0,1698472000",
+        "usr_105,merch_gamma,dev_903,10.0.4.15,3500.0,1698472400",
+        "usr_106,merch_gamma,dev_903,192.168.1.10,4850.0,1698472800",
+        "usr_107,merch_delta,dev_904,172.16.0.8,4920.0,1698473200",
+        "usr_108,merch_delta,dev_904,172.16.0.8,4880.0,1698473600"
+      ].join("\n");
+
+      const blob = new Blob([csvData], { type: "text/csv" });
+      selectedTabularFile = new File([blob], "demo_aml_transactions.csv", { type: "text/csv" });
+
+      const display = document.getElementById("tabular-filename-display");
+      if (display) {
+        display.innerHTML = `<span style="color:var(--yellow-primary); font-weight:700;">demo_aml_transactions.csv</span> (Sample AML Batch)`;
+      }
+      showToast("Loaded sample AML transaction batch with circular structuring patterns.", "Demo Data", "info");
+    }
+
+    async function submitTabularIngestion() {
+      if (!selectedTabularFile) {
+        showToast("Please choose a .csv, .xlsx, or .xls file first.", "File Required", "warning");
+        return;
+      }
+
+      const runBtn = document.getElementById("run-tabular-btn");
+      const statusBox = document.getElementById("tabular-status-box");
+      const urlInput = document.getElementById("api-url");
+      const url = (urlInput ? urlInput.value.trim() : "").replace(/\/$/, "") || "http://localhost:8000";
+
+      const threshInput = document.getElementById("tabular-threshold");
+      const threshold = threshInput ? parseFloat(threshInput.value) : 0.5;
+
+      const topKInput = document.getElementById("tabular-top-k");
+      const topK = topKInput ? parseInt(topKInput.value, 10) : 10;
+
+      const formData = new FormData();
+      formData.append("file", selectedTabularFile);
+      formData.append("threshold", threshold.toString());
+      formData.append("top_k", topK.toString());
+
+      const colUser = document.getElementById("col-user-id")?.value.trim();
+      const colMerchant = document.getElementById("col-merchant-id")?.value.trim();
+      const colDevice = document.getElementById("col-device-id")?.value.trim();
+      const colIp = document.getElementById("col-shared-ip")?.value.trim();
+      const colAmount = document.getElementById("col-amount")?.value.trim();
+      const colTimestamp = document.getElementById("col-timestamp")?.value.trim();
+
+      if (colUser) formData.append("user_id_column", colUser);
+      if (colMerchant) formData.append("merchant_id_column", colMerchant);
+      if (colDevice) formData.append("device_id_column", colDevice);
+      if (colIp) formData.append("shared_ip_column", colIp);
+      if (colAmount) formData.append("amount_column", colAmount);
+      if (colTimestamp) formData.append("timestamp_column", colTimestamp);
+
+      if (runBtn) {
+        runBtn.disabled = true;
+        runBtn.innerHTML = `
+          <svg class="spin-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+          Ingesting & Inferring...
+        `;
+      }
+
+      if (statusBox) {
+        statusBox.style.display = "block";
+        statusBox.style.background = "rgba(250, 204, 21, 0.08)";
+        statusBox.style.color = "var(--yellow-primary)";
+        statusBox.style.border = "1px solid var(--yellow-border)";
+        statusBox.innerText = "POST /analyze-tabular: Converting rows to Heterogeneous Graph & running MPNN...";
+      }
+
+      try {
+        const res = await fetch(`${url}/analyze-tabular`, {
+          method: "POST",
+          body: formData
+        });
+
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          throw new Error(errData.detail || `Server returned HTTP ${res.status}`);
+        }
+
+        const data = await res.json();
+        TABULAR_RINGS = data.rings || [];
+
+        // Update Tabular Tab in left panel
+        const tabTabular = document.getElementById("dataset-tab-tabular");
+        const countSpan = document.getElementById("tabular-rings-count");
+        if (tabTabular) tabTabular.style.display = "inline-flex";
+        if (countSpan) countSpan.innerText = TABULAR_RINGS.length;
+
+        // Update header stats
+        if (data.metadata) {
+          const u = document.getElementById("stat-users");
+          const tx = document.getElementById("stat-txs");
+          if (u && data.metadata.num_users) u.innerText = data.metadata.num_users.toLocaleString();
+          if (tx && data.metadata.total_transactions) tx.innerText = data.metadata.total_transactions.toLocaleString();
+        }
+
+        if (statusBox) {
+          statusBox.style.background = "rgba(34, 197, 94, 0.1)";
+          statusBox.style.color = "#4ade80";
+          statusBox.style.border = "1px solid rgba(34, 197, 94, 0.3)";
+          statusBox.innerText = `Ingestion successful! Extracted ${TABULAR_RINGS.length} syndicates from ${data.metadata?.total_transactions || 0} transactions.`;
+        }
+
+        setTimeout(() => {
+          closeTabularModal();
+          switchDatasetSection('tabular');
+          showToast(`Successfully analyzed tabular dataset: ${TABULAR_RINGS.length} fraud syndicates detected.`, "Tabular Analysis Complete", "success");
+        }, 800);
+
+      } catch (err) {
+        if (statusBox) {
+          statusBox.style.display = "block";
+          statusBox.style.background = "rgba(239, 68, 68, 0.1)";
+          statusBox.style.color = "#f87171";
+          statusBox.style.border = "1px solid rgba(239, 68, 68, 0.3)";
+          statusBox.innerText = `Ingestion failed: ${err.message}`;
+        }
+        showToast(`Tabular ingestion error: ${err.message}`, "Ingestion Error", "error");
+      } finally {
+        if (runBtn) {
+          runBtn.disabled = false;
+          runBtn.innerHTML = `
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Analyze Tabular File
+          `;
+        }
+      }
+    }
+
   </script>
 </body>
 </html>
