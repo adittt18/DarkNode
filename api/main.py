@@ -380,6 +380,14 @@ async def analyze_tabular(
         raise HTTPException(status_code=500, detail=f"Inference error: {exc}") from exc
 
 
+
+# Mount static web frontend so API and Web UI run together seamlessly
+from fastapi.staticfiles import StaticFiles
+web_dir = Path(__file__).resolve().parent.parent / "web"
+if web_dir.exists():
+    app.mount("/", StaticFiles(directory=str(web_dir), html=True), name="web")
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("api.main:app", host="0.0.0.0", port=8000, reload=True)
