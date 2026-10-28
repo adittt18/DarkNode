@@ -37,7 +37,8 @@ html_template = """<!DOCTYPE html>
   <!-- Inter, JetBrains Mono & Press Start 2P Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/digital-7-mono" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Press+Start+2P&family=Orbitron:wght@400;500;600;700&family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -105,8 +106,8 @@ html_template = """<!DOCTYPE html>
     header {
       background: var(--bg-panel);
       border-bottom: 1px solid var(--border-subtle);
-      height: 56px;
-      padding: 0 20px;
+      height: 62px;
+      padding: 0 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -122,8 +123,8 @@ html_template = """<!DOCTYPE html>
     }
 
     .brand-logo-mark {
-      width: 28px;
-      height: 28px;
+      width: 34px;
+      height: 34px;
       border-radius: 8px;
       background: var(--yellow-primary);
       display: flex;
@@ -133,7 +134,8 @@ html_template = """<!DOCTYPE html>
     }
 
     .brand-title {
-      font-size: 17px;
+      font-size: 20px;
+      letter-spacing: -0.01em;
       font-weight: 800;
       letter-spacing: -0.02em;
       color: var(--text-main);
@@ -142,99 +144,51 @@ html_template = """<!DOCTYPE html>
     }
 
     @keyframes defectiveBulbBlink {
-      /* Steady on in vibrant yellow */
-      0%, 18% {
-        color: var(--yellow-primary);
-      }
-      /* Rapid erratic voltage flutter (faster blinks) */
-      18.8% {
-        color: #ffffff;
-      }
-      19.6% {
-        color: var(--yellow-primary);
-      }
-      20.4% {
-        color: #ffffff;
-      }
-      21.2% {
-        color: var(--yellow-primary);
-      }
-      22.0% {
-        color: #ffffff;
-      }
-      23.2% {
-        color: var(--yellow-primary);
-      }
-      /* Steady burn */
-      23.3%, 42% {
-        color: var(--yellow-primary);
-      }
-      /* Single blink (one by one) */
-      42.8% {
-        color: #ffffff;
-      }
-      44.2% {
-        color: var(--yellow-primary);
-      }
-      /* Steady burn */
-      44.3%, 58% {
-        color: var(--yellow-primary);
-      }
-      /* Count by count pulse blinks: 1... 2... */
-      58.8% {
-        color: #ffffff;
-      }
-      60.0% {
-        color: var(--yellow-primary);
-      }
-      61.4% {
-        color: #ffffff;
-      }
-      62.6% {
-        color: var(--yellow-primary);
-      }
-      64.0% {
-        color: #ffffff;
-      }
-      65.2% {
-        color: var(--yellow-primary);
-      }
-      /* Steady burn */
-      65.3%, 78% {
-        color: var(--yellow-primary);
-      }
-      /* Quick micro-twitch */
-      78.8% {
-        color: #ffffff;
-      }
-      79.5% {
-        color: var(--yellow-primary);
-      }
-      80.3% {
-        color: #ffffff;
-      }
-      81.2% {
-        color: var(--yellow-primary);
-      }
-      /* Steady burn to completion of cycle */
-      81.3%, 100% {
-        color: var(--yellow-primary);
-      }
+      /* ON: Yellow with subtle warm neon glow */
+      0%, 14% { color: #facc15; text-shadow: 0 0 8px rgba(250, 204, 21, 0.65), 0 0 16px rgba(250, 204, 21, 0.35); }
+      /* OFF: White (defective flicker spike 1) */
+      14.3% { color: #ffffff; text-shadow: none; }
+      15.1% { color: #facc15; text-shadow: 0 0 8px rgba(250, 204, 21, 0.65), 0 0 16px rgba(250, 204, 21, 0.35); }
+      15.8% { color: #ffffff; text-shadow: none; }
+      16.9% { color: #facc15; text-shadow: 0 0 8px rgba(250, 204, 21, 0.65), 0 0 16px rgba(250, 204, 21, 0.35); }
+      /* ON: Yellow steady */
+      17%, 38% { color: #facc15; text-shadow: 0 0 8px rgba(250, 204, 21, 0.65), 0 0 16px rgba(250, 204, 21, 0.35); }
+      /* OFF: White (single stutter blink) */
+      38.4% { color: #ffffff; text-shadow: none; }
+      39.5% { color: #facc15; text-shadow: 0 0 8px rgba(250, 204, 21, 0.65), 0 0 16px rgba(250, 204, 21, 0.35); }
+      /* ON: Yellow steady */
+      39.6%, 55% { color: #facc15; text-shadow: 0 0 8px rgba(250, 204, 21, 0.65), 0 0 16px rgba(250, 204, 21, 0.35); }
+      /* OFF: White (irregular double sputter) */
+      55.4% { color: #ffffff; text-shadow: none; }
+      56.2% { color: #facc15; text-shadow: 0 0 8px rgba(250, 204, 21, 0.65), 0 0 16px rgba(250, 204, 21, 0.35); }
+      57.0% { color: #ffffff; text-shadow: none; }
+      58.1% { color: #facc15; text-shadow: 0 0 8px rgba(250, 204, 21, 0.65), 0 0 16px rgba(250, 204, 21, 0.35); }
+      59.3% { color: #ffffff; text-shadow: none; }
+      60.8% { color: #facc15; text-shadow: 0 0 8px rgba(250, 204, 21, 0.65), 0 0 16px rgba(250, 204, 21, 0.35); }
+      /* ON: Yellow steady */
+      60.9%, 76% { color: #facc15; text-shadow: 0 0 8px rgba(250, 204, 21, 0.65), 0 0 16px rgba(250, 204, 21, 0.35); }
+      /* OFF: White (quick glitch) */
+      76.5% { color: #ffffff; text-shadow: none; }
+      77.3% { color: #facc15; text-shadow: 0 0 8px rgba(250, 204, 21, 0.65), 0 0 16px rgba(250, 204, 21, 0.35); }
+      78.0% { color: #ffffff; text-shadow: none; }
+      78.7% { color: #facc15; text-shadow: 0 0 8px rgba(250, 204, 21, 0.65), 0 0 16px rgba(250, 204, 21, 0.35); }
+      /* ON: Yellow to end */
+      78.8%, 100% { color: #facc15; text-shadow: 0 0 8px rgba(250, 204, 21, 0.65), 0 0 16px rgba(250, 204, 21, 0.35); }
     }
 
     .brand-title span.kicker {
       color: var(--yellow-primary);
       display: inline-block;
       font-weight: 800;
-      text-shadow: none;
-      animation: defectiveBulbBlink 5.2s infinite;
+      text-shadow: 0 0 8px rgba(250, 204, 21, 0.65), 0 0 16px rgba(250, 204, 21, 0.35);
+      animation: defectiveBulbBlink 6s infinite;
     }
 
     .badge-pill {
       font-family: var(--font-sans);
       font-variant-numeric: tabular-nums;
       font-feature-settings: "tnum" 1;
-      font-size: 11.5px;
+      font-size: 12px;
       font-weight: 600;
       letter-spacing: 0.02em;
       padding: 2.5px 8px;
@@ -330,11 +284,12 @@ html_template = """<!DOCTYPE html>
     }
 
     .btn {
-      height: 32px;
-      padding: 0 14px;
-      border-radius: 7px;
-      font-size: 12px;
+      height: 35px;
+      padding: 0 16px;
+      border-radius: 8px;
+      font-size: 13.5px;
       font-weight: 600;
+      letter-spacing: 0.015em;
       cursor: pointer;
       border: none;
       display: inline-flex;
@@ -347,8 +302,10 @@ html_template = """<!DOCTYPE html>
 
     .btn-yellow {
       background: var(--yellow-primary);
-      color: #131415;
+      color: #000000;
+      font-weight: 750;
       box-shadow: none;
+      -webkit-font-smoothing: antialiased;
     }
 
     .btn-yellow:hover:not(:disabled) {
@@ -475,11 +432,11 @@ html_template = """<!DOCTYPE html>
     }
 
     .panel-title {
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 700;
       color: var(--text-main);
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.06em;
     }
 
     /* Dataset Mode Switcher in Left Sidebar (Actual Data vs Real AML Data) */
@@ -492,8 +449,8 @@ html_template = """<!DOCTYPE html>
 
     .dataset-tab-btn {
       flex: 1;
-      height: 30px;
-      font-size: 11.5px;
+      height: 32px;
+      font-size: 12.5px;
       font-weight: 600;
       font-family: var(--font-sans);
       background: var(--bg-card);
@@ -547,8 +504,8 @@ html_template = """<!DOCTYPE html>
 
     .tier-tab-btn {
       flex: 1;
-      height: 26px;
-      font-size: 11px;
+      height: 29px;
+      font-size: 12px;
       font-weight: 600;
       font-family: var(--font-sans);
       font-variant-numeric: tabular-nums;
@@ -592,8 +549,8 @@ html_template = """<!DOCTYPE html>
       background: var(--bg-input);
       border: 1px solid var(--border-subtle);
       border-radius: 7px;
-      padding: 7px 10px;
-      font-size: 11px;
+      padding: 8px 12px;
+      font-size: 12.5px;
       color: var(--text-main);
       outline: none;
       font-family: inherit;
@@ -749,7 +706,7 @@ html_template = """<!DOCTYPE html>
 
     .ring-label {
       font-family: var(--font-sans);
-      font-size: 13px;
+      font-size: 14.5px;
       font-weight: 600;
       letter-spacing: -0.01em;
       color: var(--text-main);
@@ -759,7 +716,7 @@ html_template = """<!DOCTYPE html>
       font-family: var(--font-sans);
       font-variant-numeric: tabular-nums;
       font-feature-settings: "tnum" 1;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 600;
       letter-spacing: 0.03em;
       padding: 2.5px 7px;
@@ -772,8 +729,8 @@ html_template = """<!DOCTYPE html>
     .ring-card-bottom {
       display: flex;
       align-items: center;
-      gap: 12px;
-      font-size: 11px;
+      gap: 14px;
+      font-size: 12px;
       color: var(--text-muted);
     }
 
@@ -860,13 +817,13 @@ html_template = """<!DOCTYPE html>
     }
 
     .canvas-pill-btn {
-      height: 26px;
-      padding: 0 10px;
-      border-radius: 5px;
+      height: 29px;
+      padding: 0 12px;
+      border-radius: 6px;
       border: 1px solid transparent;
       background: transparent;
       color: var(--text-muted);
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 600;
       cursor: pointer;
       display: inline-flex;
@@ -998,7 +955,7 @@ html_template = """<!DOCTYPE html>
     }
 
     .node-inspector-title {
-      font-size: 12px;
+      font-size: 13.5px;
       font-weight: 700;
       color: var(--text-main);
     }
@@ -1025,8 +982,8 @@ html_template = """<!DOCTYPE html>
     .node-inspector-body {
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      font-size: 11px;
+      gap: 7px;
+      font-size: 12px;
     }
 
     .inspect-field {
@@ -1065,9 +1022,9 @@ html_template = """<!DOCTYPE html>
       backdrop-filter: blur(8px);
       border: 1px solid var(--border-subtle);
       border-radius: 7px;
-      padding: 6px 12px;
+      padding: 7px 14px;
       box-shadow: var(--shadow-card);
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 600;
       color: var(--text-muted);
       z-index: 10;
@@ -1099,34 +1056,15 @@ html_template = """<!DOCTYPE html>
       border-bottom: 9px solid var(--node-merchant);
     }
 
-    /* Floating Settings Button at Right Bottom - Pure Minimal Logo, No Backside Shape */
-    .settings-floating-btn {
-      position: fixed;
-      bottom: 18px;
-      right: 18px;
-      width: 38px;
-      height: 38px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: transparent !important;
-      background-color: transparent !important;
-      border: none !important;
-      box-shadow: none !important;
-      outline: none !important;
-      padding: 0;
-      color: #94a3b8;
-      cursor: pointer;
-      z-index: 1000;
-      transition: color 0.25s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    /* Header Settings Button (inline with other header buttons) */
+    .header-settings-btn {
+      padding: 0 9px;
+      height: 35px;
+      padding: 0 11px;
     }
-
-    .settings-floating-btn:hover {
-      background: transparent !important;
-      border: none !important;
-      box-shadow: none !important;
-      color: var(--yellow-primary);
-      transform: rotate(60deg) scale(1.18);
+    .header-settings-btn:hover svg {
+      transform: rotate(60deg);
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     /* Notification Bell & Dropdown Flyout */
@@ -1139,7 +1077,8 @@ html_template = """<!DOCTYPE html>
     .notif-bell-btn {
       position: relative;
       padding: 0 10px;
-      height: 32px;
+      height: 35px;
+      padding: 0 11px;
     }
 
     .notif-badge {
@@ -1213,8 +1152,8 @@ html_template = """<!DOCTYPE html>
     .notif-flyout-title {
       display: flex;
       align-items: center;
-      gap: 7px;
-      font-size: 11.5px;
+      gap: 8px;
+      font-size: 13px;
       font-weight: 700;
       color: var(--text-main);
     }
@@ -1309,7 +1248,7 @@ html_template = """<!DOCTYPE html>
     }
 
     .notif-item-title {
-      font-size: 11px;
+      font-size: 12.5px;
       font-weight: 700;
       color: var(--text-main);
     }
@@ -1318,7 +1257,7 @@ html_template = """<!DOCTYPE html>
       font-family: var(--font-sans);
       font-variant-numeric: tabular-nums;
       font-feature-settings: "tnum" 1;
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 500;
       color: var(--text-dim);
     }
@@ -1550,8 +1489,8 @@ html_template = """<!DOCTYPE html>
     }
 
     .doc-subcard-icon {
-      width: 32px;
-      height: 32px;
+      width: 34px;
+      height: 34px;
       border-radius: 7px;
       display: flex;
       align-items: center;
@@ -1606,7 +1545,7 @@ html_template = """<!DOCTYPE html>
 
     /* Right Sidebar: Evidence & Signals Panel */
     .sidebar-right {
-      width: 340px;
+      width: 355px;
       flex-shrink: 0;
       height: 100%;
       overflow-y: auto;
@@ -1722,18 +1661,18 @@ html_template = """<!DOCTYPE html>
 
     .hero-score-val {
       font-family: var(--font-sans);
-      font-size: 24px;
-      font-weight: 700;
+      font-size: 26px;
+      font-weight: 800;
       line-height: 1;
-      color: #e8ecf3;
-      letter-spacing: -0.04em;
+      color: #ffffff;
+      letter-spacing: -0.03em;
       margin: 0;
       padding: 0;
     }
 
     .hero-score-sub {
       font-family: var(--font-mono);
-      font-size: 8px;
+      font-size: 9.5px;
       font-weight: 600;
       line-height: 1;
       color: #9aa4b8;
@@ -1745,13 +1684,13 @@ html_template = """<!DOCTYPE html>
 
     .hero-rank-badge {
       font-family: var(--font-mono);
-      font-size: 7px;
+      font-size: 9px;
       font-weight: 700;
       line-height: 1;
-      height: 17px;
+      height: 19px;
       padding: 0 8px;
       border-radius: 4px;
-      background: rgba(255, 107, 107, 0.12);
+      background: rgba(255, 107, 107, 0.15);
       letter-spacing: 0.08em;
       color: #ff6b6b;
       letter-spacing: 0.08em;
@@ -1764,12 +1703,12 @@ html_template = """<!DOCTYPE html>
     }
 
     .block-title {
-      font-size: 11px;
+      font-size: 12.5px;
       font-weight: 700;
-      color: var(--text-muted);
+      color: #9aa4b8;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 8px;
+      letter-spacing: 0.06em;
+      margin-bottom: 9px;
     }
 
     /* Signals List */
@@ -1781,12 +1720,12 @@ html_template = """<!DOCTYPE html>
     }
 
     .signal-item-row {
-      padding: 9px 12px;
+      padding: 10px 14px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       border-bottom: 1px solid var(--border-subtle);
-      font-size: 11px;
+      font-size: 12.5px;
     }
 
     .signal-item-row:last-child {
@@ -1795,14 +1734,14 @@ html_template = """<!DOCTYPE html>
 
     .signal-prefix-tag {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
+      font-size: 10.5px;
       font-weight: 700;
-      padding: 1px 4px;
-      border-radius: 3px;
-      background: var(--bg-panel);
+      padding: 2px 5px;
+      border-radius: 4px;
+      background: #141516;
       color: var(--yellow-primary);
       border: 1px solid var(--border-subtle);
-      margin-right: 6px;
+      margin-right: 8px;
     }
 
     .signal-label-text {
@@ -1817,8 +1756,9 @@ html_template = """<!DOCTYPE html>
       font-family: var(--font-sans);
       font-variant-numeric: tabular-nums;
       font-feature-settings: "tnum" 1;
-      font-weight: 600;
-      color: var(--text-main);
+      font-size: 13px;
+      font-weight: 700;
+      color: #ffffff;
     }
 
     /* Account Chips Grid */
@@ -1838,10 +1778,10 @@ html_template = """<!DOCTYPE html>
       font-family: var(--font-sans);
       font-variant-numeric: tabular-nums;
       font-feature-settings: "tnum" 1;
-      font-size: 11px;
+      font-size: 12.5px;
       font-weight: 600;
-      padding: 3px 8px;
-      border-radius: 5px;
+      padding: 5px 10px;
+      border-radius: 6px;
       background: var(--bg-panel);
       border: 1px solid var(--border-subtle);
       color: var(--yellow-primary);
@@ -1849,7 +1789,7 @@ html_template = """<!DOCTYPE html>
       transition: all 0.12s ease;
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 5px;
     }
 
     .chip-account:hover {
@@ -2798,12 +2738,7 @@ html_template = """<!DOCTYPE html>
         padding: 8px 10px;
       }
 
-      .settings-floating-btn {
-        bottom: 42px;
-        right: 8px;
-        width: 26px;
-        height: 26px;
-      }
+
     }
 
     /* Fallback portrait preview layout (if user clicks Preview in Portrait bypass) */
@@ -2832,14 +2767,69 @@ html_template = """<!DOCTYPE html>
     .auth-shell { width: min(1040px, 100%); min-height: 620px; display: grid; grid-template-columns: 1.08fr .92fr; overflow: hidden; border: 1px solid var(--border-subtle); border-radius: 18px; background: rgba(25,26,27,.94); box-shadow: 0 28px 80px rgba(0,0,0,.48), inset 0 1px rgba(255,255,255,.03); }
     .auth-visual { position: relative; display: flex; flex-direction: column; justify-content: space-between; padding: 42px; overflow: hidden; background: #0b0c0e; border-right: 1px solid var(--border-subtle); }
     .auth-runner-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
-    .auth-hud-top { position: absolute; top: 24px; right: 28px; z-index: 2; display: flex; align-items: baseline; gap: 8px; font-family: 'Space Mono', 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; pointer-events: none; }
-    .auth-hud-label { color: rgba(250, 204, 21, 0.72); font-size: 9px; font-weight: 600; letter-spacing: 0.12em; }
-    .auth-hud-num { color: #ffffff; font-size: 14px; font-weight: 700; letter-spacing: 0.08em; transition: color 0.15s ease; }
-    .auth-hud-hi { color: rgba(255, 255, 255, 0.38); font-size: 9px; letter-spacing: 0.08em; margin-left: 4px; }
+        /* 6-Digit Digital Number Selector (Tightly spaced, authentic digital font, no box) */
+    .auth-hud-top {
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 1px; /* Digits tight and close to each other */
+      pointer-events: none;
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+    }
+    .hud-digit-window {
+      position: relative;
+      width: 10px; /* Narrow width so digits sit right next to each other */
+      height: 20px;
+      overflow: hidden;
+      display: inline-block;
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+    .hud-digit-track {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.24s cubic-bezier(0.2, 1, 0.4, 1);
+    }
+    .hud-digit-cell {
+      height: 20px;
+      line-height: 20px;
+      text-align: center;
+      font-family: 'Digital-7 Mono', 'VT323', 'Orbitron', 'Share Tech Mono', monospace;
+      font-variant-numeric: tabular-nums;
+      font-size: 18px;
+      font-weight: 500;
+      color: #ffffff;
+      letter-spacing: 0;
+      opacity: 0.95;
+    }
+    .hud-digit-window.highlight .hud-digit-cell {
+      color: #ffd21f;
+      font-weight: 600;
+    }
+    .auth-hud-label, .auth-hud-hi { display: none !important; }
     .auth-hud-bottom { position: absolute; bottom: 18px; right: 28px; z-index: 2; font-family: 'Space Mono', 'JetBrains Mono', monospace; font-size: 8.5px; font-weight: 600; letter-spacing: 0.15em; color: rgba(250, 204, 21, 0.52); pointer-events: none; text-transform: uppercase; }
     .auth-brand { position: relative; z-index: 1; display: flex; align-items: center; gap: 12px; }
     .auth-brand-mark { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 10px; color: #131415; background: var(--yellow-primary); box-shadow: 0 0 24px rgba(250,204,21,.18); }
-    .auth-brand-name { font-size: 19px; font-weight: 700; letter-spacing: -.03em; }
+    .auth-brand-name { font-size: 19px; font-weight: 700; letter-spacing: -.03em; color: #ffffff; }
+    .auth-brand-name span.kicker {
+      color: #facc15;
+      display: inline-block;
+      font-weight: 700;
+      text-shadow: 0 0 8px rgba(250, 204, 21, 0.65), 0 0 16px rgba(250, 204, 21, 0.35);
+      animation: defectiveBulbBlink 6s infinite;
+    }
     .auth-brand-tag { margin-left: 4px; padding: 4px 7px; border: 1px solid var(--yellow-border); border-radius: 5px; color: var(--yellow-primary); font: 600 9px var(--font-mono); letter-spacing: .08em; }
     .auth-visual-copy { position: relative; z-index: 1; max-width: 420px; }
     .auth-kicker { display: flex; align-items: center; gap: 8px; color: var(--yellow-primary); font: 600 10px var(--font-mono); letter-spacing: .14em; text-transform: uppercase; }
@@ -2852,16 +2842,16 @@ html_template = """<!DOCTYPE html>
     .auth-form-panel { display: flex; align-items: center; padding: 42px; background: var(--bg-card); }
     .auth-form-wrap { width: 100%; max-width: 360px; margin: auto; }
     .auth-form-heading { font-size: 24px; letter-spacing: -.04em; }
-    .auth-form-subheading { margin-top: 8px; color: var(--text-muted); font-size: 12px; line-height: 1.5; }
+    .auth-form-subheading { margin-top: 10px; color: #b4bac5; font-size: 13.5px; line-height: 1.55; }
     .auth-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin: 26px 0 22px; padding: 4px; border: 1px solid var(--border-subtle); border-radius: 8px; background: var(--bg-input); }
-    .auth-tab { border: 0; border-radius: 5px; padding: 9px; color: var(--text-dim); background: transparent; font: 600 10px var(--font-mono); cursor: pointer; }
-    .auth-tab.active { color: #131415; background: var(--yellow-primary); }
-    .auth-field { display: block; margin-top: 14px; color: var(--text-muted); font: 600 9px var(--font-mono); letter-spacing: .08em; text-transform: uppercase; }
-    .auth-field input, .auth-field select { display: block; width: 100%; margin-top: 7px; padding: 12px 13px; border: 1px solid var(--border-subtle); border-radius: 7px; outline: none; color: var(--text-main); background: var(--bg-input); font: 500 12px var(--font-sans); transition: border-color .2s, box-shadow .2s; }
+    .auth-tab { border: 0; border-radius: 6px; padding: 10px 12px; color: #9ca3af; background: transparent; font: 700 12px var(--font-mono); cursor: pointer; letter-spacing: 0.05em; transition: all 0.15s ease; }
+    .auth-tab.active { color: #000000; font-weight: 800; background: var(--yellow-primary); -webkit-font-smoothing: antialiased; }
+    .auth-field { display: block; margin-top: 16px; color: #b0b7c3; font: 700 11.5px var(--font-mono); letter-spacing: .09em; text-transform: uppercase; }
+    .auth-field input, .auth-field select { display: block; width: 100%; margin-top: 7px; padding: 13px 15px; border: 1px solid #33363b; border-radius: 8px; outline: none; color: #ffffff; background: var(--bg-input); font: 500 13.5px var(--font-sans); transition: border-color .2s, box-shadow .2s; }
     .auth-field input:focus, .auth-field select:focus { border-color: var(--yellow-dim); box-shadow: 0 0 0 3px rgba(250,204,21,.1); }
-    .auth-submit { width: 100%; margin-top: 22px; padding: 13px 16px; border: 0; border-radius: 7px; color: #131415; background: var(--yellow-primary); font: 700 11px var(--font-mono); letter-spacing: .06em; cursor: pointer; transition: transform .2s, background .2s; }
+    .auth-submit { width: 100%; margin-top: 24px; padding: 14px 18px; border: 0; border-radius: 8px; color: #000000; background: var(--yellow-primary); font: 800 13.5px var(--font-mono); letter-spacing: .07em; cursor: pointer; transition: transform .2s, background .2s; -webkit-font-smoothing: antialiased; }
     .auth-submit:hover { transform: translateY(-1px); background: var(--yellow-hover); }
-    .auth-note { margin-top: 16px; color: var(--text-dim); font-size: 10px; line-height: 1.55; text-align: center; }
+    .auth-note { margin-top: 18px; color: #8e95a2; font-size: 11.5px; line-height: 1.6; text-align: center; }
     .auth-message { min-height: 18px; margin-top: 12px; color: #f87171; font: 600 10px var(--font-mono); line-height: 1.5; }
     .auth-message.success { color: #34d399; }
     .auth-request-fields { display: none; }
@@ -2877,14 +2867,18 @@ html_template = """<!DOCTYPE html>
     <div class="auth-shell">
       <div class="auth-visual" id="auth-visual-panel">
         <canvas id="auth-runner-canvas" class="auth-runner-canvas" aria-hidden="true"></canvas>
-        <div class="auth-hud-top" id="auth-hud-top">
-          <span class="auth-hud-label">RISK RUN</span>
-          <span class="auth-hud-num" id="auth-risk-run-num">00002</span>
-          <span class="auth-hud-hi">HI 51175</span>
+        <div class="auth-hud-top" id="auth-hud-top" aria-label="Lottery Number Selector">
+          <div class="hud-digit-window"><div class="hud-digit-track" id="hud-d0"></div></div>
+          <div class="hud-digit-window"><div class="hud-digit-track" id="hud-d1"></div></div>
+          <div class="hud-digit-window"><div class="hud-digit-track" id="hud-d2"></div></div>
+          <div class="hud-digit-window"><div class="hud-digit-track" id="hud-d3"></div></div>
+          <div class="hud-digit-window"><div class="hud-digit-track" id="hud-d4"></div></div>
+          <div class="hud-digit-window"><div class="hud-digit-track" id="hud-d5"></div></div>
         </div>
-        <div class="auth-brand"><div class="auth-brand-mark"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><circle cx="12" cy="12" r="3"/><circle cx="19" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><path d="M12 9 19 6.5M12 15 5 17.5"/></svg></div><span class="auth-brand-name">DarkNode</span><span class="auth-brand-tag">GNN-MPNN</span></div>
+        <div class="auth-brand"><div class="auth-brand-mark"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><circle cx="12" cy="12" r="3"/><circle cx="19" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><path d="M12 9 19 6.5M12 15 5 17.5"/></svg></div><span class="auth-brand-name">Dark<span class="kicker">Node</span></span></div>
         <div class="auth-visual-copy"><div class="auth-kicker">Restricted intelligence network</div><h1 class="auth-title">See the pattern.<br><span style="color:var(--yellow-primary)">Stop the ring.</span></h1><p class="auth-description">A controlled workspace for authorized financial-crime, AML, fraud-intelligence, and risk operations teams.</p></div>
-        <div class="auth-status-row"><span class="auth-status"><i></i> ENCRYPTED SESSION</span><span class="auth-status"><i></i> ACCESS MONITORED</span><span class="auth-status"><i></i> GNN TELEMETRY ONLINE</span></div>
+        <div class="auth-bottom-spacer" style="height: 52px; pointer-events: none;"></div>
+        
         <div class="auth-hud-bottom">LIVE RISK SIGNALS</div>
       </div>
       <div class="auth-form-panel"><div class="auth-form-wrap"><h2 class="auth-form-heading" id="auth-form-title">Sign in to DarkNode</h2><p class="auth-form-subheading" id="auth-form-subtitle">Use your approved employee identity to enter the intelligence console.</p><div class="auth-tabs"><button class="auth-tab active" type="button" id="auth-signin-tab">SIGN IN</button><button class="auth-tab" type="button" id="auth-request-tab">REQUEST ACCESS</button></div><form id="auth-form" novalidate><label class="auth-field">Work email<input id="auth-email" type="email" autocomplete="username" placeholder="name@approved-organization.gov" required></label><label class="auth-field">Employee ID<input id="auth-employee-id" type="text" autocomplete="off" placeholder="DN-AML-0042" required></label><label class="auth-field">Authorized sector<select id="auth-sector"><option value="AML">AML / Financial Crime</option><option value="FRAUD">Fraud Intelligence</option><option value="RISK">Risk &amp; Compliance</option><option value="FIU">Financial Intelligence Unit</option></select></label><label class="auth-field" id="auth-password-field">Passphrase<input id="auth-password" type="password" autocomplete="current-password" placeholder="Enter your secure passphrase" required></label><div class="auth-request-fields" id="auth-request-fields"><label class="auth-field">Organization<input id="auth-organization" type="text" placeholder="Your institution or agency"></label><label class="auth-field">Reason for access<input id="auth-access-reason" type="text" placeholder="Describe your approved operational need"></label></div><button class="auth-submit" id="auth-submit" type="submit">VERIFY EMPLOYEE ACCESS</button><div class="auth-message" id="auth-message" role="status" aria-live="polite"></div></form><p class="auth-note">Access is limited to approved personnel and selected operational sectors. All sessions are audited.</p></div></div>
@@ -2937,7 +2931,7 @@ html_template = """<!DOCTYPE html>
     <div class="brand-group">
       <div class="brand-logo-mark">
         <!-- Raw Network Graph Node Glyph -->
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#131415" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><circle cx="19" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><line x1="12" y1="9" x2="19" y2="6.5"/><line x1="12" y1="15" x2="5" y2="17.5"/></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#131415" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><circle cx="19" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><line x1="12" y1="9" x2="19" y2="6.5"/><line x1="12" y1="15" x2="5" y2="17.5"/></svg>
       </div>
       <div class="brand-title">Dark<span class="kicker">Node</span></div>
       <span class="badge-pill">GNN-MPNN</span>
@@ -2963,14 +2957,22 @@ html_template = """<!DOCTYPE html>
     <div class="header-actions">
       <!-- Benchmark Modal Button -->
       <button class="btn btn-outline" onclick="openBenchmarkModal()" title="View Empirical Model Benchmarks vs Bank Rules">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
         Benchmark
       </button>
 
-      <!-- Notification Bell with Dropdown Beside Benchmark -->
+      <!-- Settings Button (beside Benchmark) -->
+      <button class="btn btn-outline header-settings-btn" id="open-settings-bottom-btn" onclick="openSettingsModal()" title="System Configuration &amp; Compliance" aria-label="System Configuration">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </button>
+
+<!-- Notification Bell with Dropdown Beside Benchmark -->
       <div class="notif-bell-container">
         <button class="btn btn-outline notif-bell-btn" id="notif-bell-btn" onclick="toggleNotifDropdown(event)" title="Notifications & Compliance Audit Alerts">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
             <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
             <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
           </svg>
@@ -2998,12 +3000,12 @@ html_template = """<!DOCTYPE html>
 
       <!-- Run Analysis Button with Intelligent Pipeline Execution -->
       <button class="btn btn-yellow" id="run-btn" onclick="fetchRings()">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
         Run Analysis
       </button>
 
       <!-- Fullscreen Toggle Button -->
-      <button class="btn btn-outline" id="fullscreen-toggle-btn" onclick="toggleFullScreen()" title="Toggle Fullscreen" style="padding: 0 9px; height: 32px;" aria-label="Toggle Fullscreen">
+      <button class="btn btn-outline" id="fullscreen-toggle-btn" onclick="toggleFullScreen()" title="Toggle Fullscreen" style="padding: 0 11px; height: 35px;" aria-label="Toggle Fullscreen">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
         </svg>
@@ -3331,8 +3333,8 @@ html_template = """<!DOCTYPE html>
 
         <!-- Compliance & Regulatory Actions -->
         <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 4px;">
-          <button class="btn btn-yellow" id="freeze-btn" style="height: 36px;" onclick="executeFreezeAction()" title="Execute legal debit freeze on all syndicate accounts">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <button class="btn btn-yellow" id="freeze-btn" style="height: 40px; font-size: 14px; font-weight: 800; color: #000000; width: 100%;" onclick="executeFreezeAction()" title="Execute legal debit freeze on all syndicate accounts">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
             Freeze Syndicate Accounts
           </button>
         </div>
@@ -3341,13 +3343,6 @@ html_template = """<!DOCTYPE html>
 
   </div>
 
-  <!-- Fixed Floating Settings Trigger at Right Bottom of Page (Clean Logo Only, No Shape) -->
-  <button class="settings-floating-btn" id="open-settings-bottom-btn" onclick="openSettingsModal()" title="System Configuration & Compliance" aria-label="System Configuration">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="12" r="3"/>
-      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-    </svg>
-  </button>
   </div><!-- end #app-viewport-wrapper -->
 
   <!-- Interactive System Settings & Compliance Modal -->
@@ -3452,11 +3447,11 @@ html_template = """<!DOCTYPE html>
             </div>
             <div style="display: flex; flex-direction: column; gap: 7px; margin-top: 2px;">
               <button class="btn btn-outline" style="height: 33px;" onclick="exportSarDossier()">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                 Export SAR Dossier (JSON / FinCEN)
               </button>
               <button class="btn btn-outline" style="height: 33px;" onclick="exportSarCsv()">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
                 Export Evidence Ledger (CSV)
               </button>
             </div>
@@ -4291,7 +4286,7 @@ html_template = """<!DOCTYPE html>
         if (runBtn) {
           runBtn.disabled = false;
           runBtn.innerHTML = `
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
             Run Analysis
           `;
           runBtn.style.opacity = "1";
@@ -4838,13 +4833,13 @@ html_template = """<!DOCTYPE html>
       const freezeBtn = document.getElementById("freeze-btn");
       const isFrozen = frozenRings.has(ring.ring_id);
       if (isFrozen) {
-        freezeBtn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Accounts Suspended (Click to Reactivate)`;
+        freezeBtn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Accounts Suspended (Click to Reactivate)`;
         freezeBtn.disabled = false;
         freezeBtn.style.opacity = "1";
         freezeBtn.style.background = "#ef4444";
         freezeBtn.style.color = "#ffffff";
       } else {
-        freezeBtn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Freeze Syndicate Accounts`;
+        freezeBtn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Freeze Syndicate Accounts`;
         freezeBtn.disabled = false;
         freezeBtn.style.opacity = "1";
         freezeBtn.style.background = "var(--yellow-primary)";
@@ -6532,7 +6527,7 @@ html_template = """<!DOCTYPE html>
       const T = 0.35;         // jump airtime
       const HP_factor = 120;  // apex height factor in units of s
 
-      // Two UFO Saucers (Ping-pong between 0.07W and 0.93W)
+      // Two UFO Saucers (wrap-around: bigger goes left, smaller goes right)
       const saucerA = {
         k: 1.0,
         xRatio: 0.48,
@@ -6545,7 +6540,7 @@ html_template = """<!DOCTYPE html>
       const saucerB = {
         k: 0.83,
         xRatio: 0.162,
-        vxRatio: 0.037,
+        vxRatio: 0.098,
         baseYRatio: 0.25,
         bobAmp: 6,
         phase: 2.1
@@ -6660,8 +6655,8 @@ html_template = """<!DOCTYPE html>
         ctx.strokeStyle = "rgba(255, 210, 31, " + (0.13 * pulse) + ")";
         ctx.stroke();
 
-        // Orbiting dot: radius 255s, one turn per 90s, starting angle 0.204 rad
-        const dotAngle = 0.204 + (t / 90) * 2 * Math.PI;
+        // Orbiting dot: radius 255s, one turn per 6s, starting angle 0.204 rad (fast orbit)
+        const dotAngle = 0.204 + (t / 6) * 2 * Math.PI;
         const dotX = cx + 255 * s * Math.cos(dotAngle);
         const dotY = cy + 255 * s * Math.sin(dotAngle);
 
@@ -6690,16 +6685,16 @@ html_template = """<!DOCTYPE html>
       }
 
       function updateSaucers(dt) {
-        [saucerA, saucerB].forEach(saucer => {
-          saucer.xRatio += saucer.vxRatio * dt;
-          if (saucer.xRatio <= 0.07) {
-            saucer.xRatio = 0.07;
-            saucer.vxRatio = Math.abs(saucer.vxRatio);
-          } else if (saucer.xRatio >= 0.93) {
-            saucer.xRatio = 0.93;
-            saucer.vxRatio = -Math.abs(saucer.vxRatio);
-          }
-        });
+        // Saucer A goes LEFT, wraps around from right when it exits left
+        saucerA.xRatio += saucerA.vxRatio * dt;
+        if (saucerA.xRatio < -0.12) {
+          saucerA.xRatio = 1.12;
+        }
+        // Saucer B goes RIGHT, wraps around from left when it exits right
+        saucerB.xRatio += saucerB.vxRatio * dt;
+        if (saucerB.xRatio > 1.12) {
+          saucerB.xRatio = -0.12;
+        }
       }
 
       // 3. UFO beams: drawn before saucers
@@ -6754,8 +6749,19 @@ html_template = """<!DOCTYPE html>
           ctx.fillRect(saucer.x - hw, rowY, hw * 2, 3 * u);
 
           if (i === 3) {
-            ctx.fillStyle = "#0b0c0e";
+            // Blinking window ports / scanning signal lights
+            // Alternating strobe between Electric Yellow (#ffd21f) when light is ON, and deep background (#0b0c0e) when OFF
+            const cycle = (animTime * 3.5 + (saucer.k < 0.9 ? 1.2 : 0)) % 1.0;
+            // Left light ON for first half, right light ON for second half, with sharp instant blink transitions
+            const leftOn = cycle < 0.45;
+            const rightOn = cycle >= 0.50 && cycle < 0.95;
+
+            // Left Window Dot
+            ctx.fillStyle = leftOn ? "#ffd21f" : "#0b0c0e";
             ctx.fillRect(saucer.x - 19 * u, rowY, 5.5 * u, 3 * u);
+
+            // Right Window Dot
+            ctx.fillStyle = rightOn ? "#ffd21f" : "#0b0c0e";
             ctx.fillRect(saucer.x + 13.5 * u, rowY, 5.5 * u, 3 * u);
           }
         }
@@ -6783,37 +6789,33 @@ html_template = """<!DOCTYPE html>
       const THREAT_LABELS_TALL = ["AML", "MULE", "RING", "SHL", "RISK"];
       const THREAT_LABELS_WIDE = ["MULE", "RING", "AML", "SHELL", "LAYER"];
 
+      // Draw Vector Visual Cyber Threat Obstacles (Shields, Radar Nodes, Rings, Firewalls)
       function drawThreatBarrier(ob) {
         const boxLeft = ob.c - ob.w / 2;
         const boxTop = gy - ob.h;
+        const cx = ob.c;
+        const cy = boxTop + ob.h / 2;
 
         ctx.save();
 
-        // 1. Cyber Ground Anchor Footpads
-        ctx.fillStyle = "rgba(255, 255, 255, 0.4)";
-        ctx.fillRect(boxLeft - 1.5 * s, gy - 2.5 * s, ob.w + 3 * s, 2.5 * s);
+        // 1. Reinforced Ground Anchorage Footpads
+        ctx.fillStyle = "rgba(255, 255, 255, 0.55)";
+        ctx.fillRect(boxLeft - 3 * s, gy - 3 * s, ob.w + 6 * s, 3 * s);
 
-        // 2. Translucent Hazard Glass / Cyber Shield Background
-        ctx.fillStyle = "rgba(11, 12, 14, 0.78)";
+        // 2. High-Tech Glass Cyber Obelisk Backplate
+        const grad = ctx.createLinearGradient(boxLeft, boxTop, boxLeft, gy);
+        grad.addColorStop(0, "#191c22");
+        grad.addColorStop(1, "#0d0e12");
+        ctx.fillStyle = grad;
         ctx.fillRect(boxLeft, boxTop, ob.w, ob.h);
 
-        // 3. Cyber Scanlines / Micro Hatching
-        ctx.strokeStyle = "rgba(255, 255, 255, 0.08)";
-        ctx.lineWidth = 1 * s;
-        for (let yLine = boxTop + 4 * s; yLine < gy - 3 * s; yLine += 4 * s) {
-          ctx.beginPath();
-          ctx.moveTo(boxLeft + 2 * s, yLine);
-          ctx.lineTo(boxLeft + ob.w - 2 * s, yLine);
-          ctx.stroke();
-        }
-
-        // 4. Main Outlined Frame
+        // 3. Precision Frame Border
         ctx.lineWidth = Math.max(1.5, 1.8 * s);
-        ctx.strokeStyle = "rgba(255, 255, 255, 0.65)";
+        ctx.strokeStyle = "rgba(255, 255, 255, 0.4)";
         ctx.strokeRect(boxLeft, boxTop, ob.w, ob.h);
 
-        // 5. Tech Corner Brackets in Cyber Yellow (#ffd21f)
-        const cornerLen = Math.min(5 * s, ob.w * 0.25);
+        // 4. Electric Yellow Tech Brackets (#ffd21f)
+        const cornerLen = Math.min(7 * s, ob.w * 0.28);
         ctx.lineWidth = Math.max(2, 2.2 * s);
         ctx.strokeStyle = "#ffd21f";
 
@@ -6845,45 +6847,132 @@ html_template = """<!DOCTYPE html>
         ctx.lineTo(boxLeft + ob.w, gy - cornerLen);
         ctx.stroke();
 
-        // 6. Top Threat Sensor Diode (Blinking Coral-Red Alert Beacon)
-        const blink = 0.5 + 0.5 * Math.sin(animTime * 10 + ob.c);
-        ctx.fillStyle = blink > 0.35 ? "#ff6b6b" : "rgba(255, 107, 107, 0.25)";
-        ctx.fillRect(ob.c - 2 * s, boxTop - 3 * s, 4 * s, 2.5 * s);
-        ctx.fillStyle = "rgba(255, 255, 255, 0.75)";
-        ctx.fillRect(ob.c - 0.7 * s, boxTop - 1.2 * s, 1.4 * s, 1.2 * s);
+        // 5. Pulsing Threat Alert Diode on Top (Coral Red / Amber)
+        const blink = 0.5 + 0.5 * Math.sin(animTime * 9 + ob.c);
+        ctx.fillStyle = blink > 0.4 ? "#ff4d4f" : "rgba(255, 77, 79, 0.3)";
+        ctx.fillRect(cx - 3 * s, boxTop - 4 * s, 6 * s, 3.5 * s);
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(cx - 1 * s, boxTop - 2.5 * s, 2 * s, 1.5 * s);
 
-        // 7. Actual AML Threat Hurdle Typology Text Badge
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
+        // 6. DRAW VISUAL CYBER SYMBOLS (No text - 100% Crisp Visual Vector Glyphs)
+        const glyph = ob.glyph || (ob.isTall ? "shield" : "syndicate");
 
-        const label = ob.label || (ob.isTall ? "AML" : "MULE");
+        if (glyph === "shield" || (!ob.glyph && ob.isTall)) {
+          // Visual 1: Defended Cyber Shield with Core Energy Lock
+          const shW = Math.min(13 * s, ob.w * 0.55);
+          const shH = Math.min(16 * s, ob.h * 0.52);
+          const topY = cy - shH * 0.45;
 
-        if (ob.isTall) {
-          // Mini warning exclamation top badge
-          ctx.fillStyle = "rgba(250, 204, 21, 0.9)";
-          ctx.font = "700 " + Math.max(6, Math.round(7 * s)) + "px 'JetBrains Mono', monospace";
-          ctx.fillText("!", ob.c, boxTop + 7 * s);
+          ctx.beginPath();
+          ctx.moveTo(cx, topY + shH);
+          ctx.lineTo(cx - shW / 2, topY + shH * 0.35);
+          ctx.lineTo(cx - shW / 2, topY);
+          ctx.lineTo(cx + shW / 2, topY);
+          ctx.lineTo(cx + shW / 2, topY + shH * 0.35);
+          ctx.closePath();
 
-          // Center AML Threat Code (e.g. AML, MULE, RING, SHL, RISK)
+          ctx.fillStyle = "rgba(250, 204, 21, 0.16)";
+          ctx.fill();
+          ctx.strokeStyle = "#ffd21f";
+          ctx.lineWidth = Math.max(1.8, 1.8 * s);
+          ctx.stroke();
+
+          // Shield Core Crosshair
           ctx.fillStyle = "#ffffff";
-          const fontSize = label.length >= 4 ? Math.max(6, Math.round(7.2 * s)) : Math.max(7, Math.round(8.5 * s));
-          ctx.font = "700 " + fontSize + "px 'Space Mono', monospace";
-          ctx.fillText(label, ob.c, boxTop + ob.h / 2 + 1 * s);
+          ctx.fillRect(cx - 1 * s, cy - 3 * s, 2 * s, 6 * s);
+          ctx.fillRect(cx - 3 * s, cy - 1 * s, 6 * s, 2 * s);
+        } else if (glyph === "radar") {
+          // Visual 2: Concentric Radar Threat Sweeper
+          const rad = Math.min(8.5 * s, ob.h * 0.32);
+          ctx.strokeStyle = "rgba(250, 204, 21, 0.4)";
+          ctx.lineWidth = 1.2 * s;
+          ctx.beginPath();
+          ctx.arc(cx, cy, rad, 0, Math.PI * 2);
+          ctx.stroke();
 
-          // Bottom tech slot
-          ctx.fillStyle = "rgba(255, 255, 255, 0.35)";
-          ctx.fillRect(boxLeft + 3 * s, gy - 5 * s, ob.w - 6 * s, 1.2 * s);
+          ctx.beginPath();
+          ctx.arc(cx, cy, rad * 0.55, 0, Math.PI * 2);
+          ctx.stroke();
+
+          // Radar sweeping pulse beam
+          const sweepAngle = animTime * 4.5 + ob.c;
+          ctx.strokeStyle = "#ffd21f";
+          ctx.lineWidth = Math.max(1.6, 1.8 * s);
+          ctx.beginPath();
+          ctx.moveTo(cx, cy);
+          ctx.lineTo(cx + rad * Math.cos(sweepAngle), cy + rad * Math.sin(sweepAngle));
+          ctx.stroke();
+
+          // Core Dot
+          ctx.fillStyle = "#ffffff";
+          ctx.beginPath();
+          ctx.arc(cx, cy, 2 * s, 0, Math.PI * 2);
+          ctx.fill();
+        } else if (glyph === "syndicate" || (!ob.glyph && !ob.isTall)) {
+          // Visual 3: Interconnected DarkNode Syndicate Graph Triad
+          const nodeRad = 3.2 * s;
+          const spanX = 9 * s;
+          const spanY = 5 * s;
+
+          const n1x = cx - spanX, n1y = cy + spanY;
+          const n2x = cx + spanX, n2y = cy + spanY;
+          const n3x = cx,         n3y = cy - spanY;
+
+          // Network Connection Edges
+          ctx.strokeStyle = "#ffd21f";
+          ctx.lineWidth = Math.max(1.5, 1.8 * s);
+          ctx.beginPath();
+          ctx.moveTo(n1x, n1y);
+          ctx.lineTo(n3x, n3y);
+          ctx.lineTo(n2x, n2y);
+          ctx.lineTo(n1x, n1y);
+          ctx.stroke();
+
+          // Triad Nodes
+          [ [n1x, n1y], [n2x, n2y], [n3x, n3y] ].forEach(([nx, ny], idx) => {
+            ctx.fillStyle = idx === 2 ? "#ffd21f" : "#ffffff";
+            ctx.beginPath();
+            ctx.arc(nx, ny, nodeRad, 0, Math.PI * 2);
+            ctx.fill();
+          });
+        } else if (glyph === "firewall") {
+          // Visual 4: Multi-Layer Laser Grid Security Barrier
+          const fwW = ob.w * 0.6;
+          const fwH = ob.h * 0.5;
+          const lX = cx - fwW / 2;
+          const tY = cy - fwH / 2;
+
+          ctx.strokeStyle = "#ffd21f";
+          ctx.lineWidth = 1.4 * s;
+          // Horizontal security laser lines
+          for (let ly = tY; ly <= tY + fwH; ly += fwH / 3) {
+            ctx.beginPath();
+            ctx.moveTo(lX, ly);
+            ctx.lineTo(lX + fwW, ly);
+            ctx.stroke();
+          }
+          // Vertical posts
+          ctx.fillStyle = "#ffffff";
+          ctx.fillRect(lX, tY, 2.5 * s, fwH);
+          ctx.fillRect(lX + fwW - 2.5 * s, tY, 2.5 * s, fwH);
         } else {
-          // Wide Barrier: full cyber badge pill
-          ctx.fillStyle = "rgba(255, 255, 255, 0.12)";
-          ctx.fillRect(boxLeft + 3 * s, boxTop + ob.h / 2 - 6 * s, ob.w - 6 * s, 12 * s);
-          ctx.strokeStyle = "rgba(250, 204, 21, 0.45)";
-          ctx.lineWidth = 1 * s;
-          ctx.strokeRect(boxLeft + 3 * s, boxTop + ob.h / 2 - 6 * s, ob.w - 6 * s, 12 * s);
-
-          ctx.fillStyle = "#ffffff";
-          ctx.font = "700 " + Math.max(7, Math.round(8.5 * s)) + "px 'Space Mono', monospace";
-          ctx.fillText(label, ob.c, boxTop + ob.h / 2);
+          // Visual 5: Biometric Cyber Padlock
+          const pW = 10 * s;
+          const pH = 8 * s;
+          // Shackle loop
+          ctx.strokeStyle = "#ffffff";
+          ctx.lineWidth = 1.6 * s;
+          ctx.beginPath();
+          ctx.arc(cx, cy - 3 * s, 4 * s, Math.PI, 0);
+          ctx.stroke();
+          // Lock body
+          ctx.fillStyle = "#ffd21f";
+          ctx.fillRect(cx - pW / 2, cy - 1 * s, pW, pH);
+          // Keyhole
+          ctx.fillStyle = "#131415";
+          ctx.beginPath();
+          ctx.arc(cx, cy + 2 * s, 1.6 * s, 0, Math.PI * 2);
+          ctx.fill();
         }
 
         ctx.restore();
@@ -6892,13 +6981,12 @@ html_template = """<!DOCTYPE html>
       function updateAndDrawObstacles(dt, v, rx) {
         nextC -= v * dt;
         if (nextC <= W + 30 * s) {
-          const isTall = Math.random() < 0.70;
-          const bw = isTall ? 20 * s : 32 * s;
-          const bh = isTall ? (34 + Math.random() * 8) * s : 28 * s;
+          const isTall = Math.random() < 0.65;
+          const bw = isTall ? 28 * s : 42 * s;
+          const bh = isTall ? (35 + Math.random() * 8) * s : 30 * s;
           const jitter = (Math.random() - 0.5) * 0.012; // -6ms to +6ms
-          const label = isTall
-            ? THREAT_LABELS_TALL[Math.floor(Math.random() * THREAT_LABELS_TALL.length)]
-            : THREAT_LABELS_WIDE[Math.floor(Math.random() * THREAT_LABELS_WIDE.length)];
+          const glyphTypes = isTall ? ["shield", "radar", "firewall", "lock"] : ["syndicate", "network", "radar", "shield"];
+          const glyph = glyphTypes[Math.floor(Math.random() * glyphTypes.length)];
 
           obstacles.push({
             c: nextC,
@@ -6907,7 +6995,7 @@ html_template = """<!DOCTYPE html>
             jitter: jitter,
             handled: false,
             isTall: isTall,
-            label: label
+            glyph: glyph
           });
           nextC += v * T + (60 + Math.random() * 60) * s;
         }
@@ -7003,25 +7091,55 @@ html_template = """<!DOCTYPE html>
         ctx.fillRect(rTopX + 16 * q, rTopY + (30 + leg2) * q, 8 * q, 1.6 * q);
       }
 
-      // 8. HUD: "RISK RUN" counts up by 14/sec, turns #FFD21F for 1s on multiples of 100
+      // 6-Digit Non-Stop Lottery Selector Tumbler (Continuous Digit Rolling)
+      const digitTracks = [
+        document.getElementById("hud-d0"),
+        document.getElementById("hud-d1"),
+        document.getElementById("hud-d2"),
+        document.getElementById("hud-d3"),
+        document.getElementById("hud-d4"),
+        document.getElementById("hud-d5")
+      ];
+
+      // Populate continuous loop of digits (0-9 repeated 4 times)
+      digitTracks.forEach(track => {
+        if (!track) return;
+        let html = '';
+        for (let cycle = 0; cycle < 4; cycle++) {
+          for (let i = 0; i <= 9; i++) {
+            html += `<div class="hud-digit-cell">${i}</div>`;
+          }
+        }
+        track.innerHTML = html;
+      });
+
+      // 6-Digit Clear Digital Number Selection (Legible, rhythmic digit ticks like lottery selection)
+      let currentDigits = [0, 0, 0, 0, 0, 0];
+      let digitTickTimers = [0, 0, 0, 0, 0, 0];
+      // Tick intervals: each column ticks to a new clear number at a comfortable, readable pace (3 to 8 changes/sec)
+      const tickIntervals = [0.28, 0.22, 0.35, 0.18, 0.26, 0.15];
+
       function updateHUD(dt) {
-        if (!hudNumEl) return;
-        const oldScore = Math.floor(hudRunCount);
-        hudRunCount = (hudRunCount + 14 * dt) % 100000;
-        const newScore = Math.floor(hudRunCount);
+        for (let i = 0; i < 6; i++) {
+          const track = digitTracks[i];
+          if (!track) continue;
 
-        if (Math.floor(oldScore / 100) !== Math.floor(newScore / 100)) {
-          hudYellowTimer = 1.0;
+          digitTickTimers[i] += dt;
+          if (digitTickTimers[i] >= tickIntervals[i]) {
+            digitTickTimers[i] = 0;
+            // Advance by 1 digit cleanly so every number is distinct and readable
+            currentDigits[i] = (currentDigits[i] + 1) % 10;
+            
+            // Translate track so current digit sits in the window
+            const targetOffset = (10 + currentDigits[i]) * 20;
+            track.style.transform = `translateY(-${targetOffset}px)`;
+          }
+
+          // Subtle gold accent on the 1st digit
+          if (i === 0) {
+            track.parentElement.classList.add("highlight");
+          }
         }
-
-        if (hudYellowTimer > 0) {
-          hudYellowTimer -= dt;
-          hudNumEl.style.color = "#FFD21F";
-        } else {
-          hudNumEl.style.color = "#ffffff";
-        }
-
-        hudNumEl.textContent = String(newScore).padStart(5, "0");
       }
 
       function drawStaticFrame() {
@@ -7040,10 +7158,10 @@ html_template = """<!DOCTYPE html>
         drawGround(0, 0);
         drawThreatBarrier({
           c: 0.55 * W + 10 * s,
-          w: 20 * s,
+          w: 28 * s,
           h: 36 * s,
           isTall: true,
-          label: "AML"
+          glyph: "shield"
         });
 
         drawRobot(0.10 * W, 0, 0);
