@@ -139,6 +139,7 @@ uvicorn api.main:app --reload --port 8000
 - Interactive API Documentation: `http://localhost:8000/docs`
 - Health check: `http://localhost:8000/health`
 - Run inference & extract rings: `POST http://localhost:8000/analyze`
+- Ingest tabular files and analyze rings: `POST http://localhost:8000/analyze-tabular` (multipart upload)
  
 ### 6. Launch Web Dashboard
  
@@ -147,6 +148,27 @@ Simply open `web/index.html` directly in any web browser, or serve it locally:
 python -m http.server 3000 --directory web
 ```
 Navigate to `http://localhost:3000` to inspect the live force-directed fraud ring visualization.
+
+---
+
+## Tabular Ingestion (Backend API)
+
+`POST /analyze-tabular` accepts `.csv`, `.xlsx`, and `.xls` uploads and converts rows into the existing heterogeneous graph schema before running the same ring extraction pipeline used by `/analyze`.
+
+- **Default graph-building convention**
+  - Rows represent user records.
+  - `user_id` (or the first column when `user_id` is absent) is used as the user identifier.
+  - Non-relationship columns are folded into user-node attributes/features.
+- **Optional relationship columns** (multipart form fields):  
+  `merchant_id_column`, `device_id_column`, `shared_ip_column`, `amount_column`, `timestamp_column`, `user_id_column`
+  - `merchant_id_column` creates `user -> transacts -> merchant` edges.
+  - `device_id_column` creates `user -> uses -> device` edges.
+  - `shared_ip_column` creates pairwise `user -> shares_ip -> user` edges among users sharing the same IP value.
+  - `amount_column` and `timestamp_column` are mapped to transaction edge attributes.
+- **Validation and errors**
+  - Unsupported file extensions return HTTP 400.
+  - Malformed, empty, or invalid tabular inputs return HTTP 400 with descriptive error details.
+  - Uploads are size-limited server-side (HTTP 413 when exceeded).
 
 ---
 
