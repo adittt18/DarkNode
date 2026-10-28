@@ -4,13 +4,20 @@ from __future__ import annotations
 
 import os
 from pathlib import Path
+import tempfile
 from typing import Any
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import torch
 
+from src.data_processing.tabular_ingestion import (
+    SUPPORTED_TABULAR_EXTENSIONS,
+    TabularGraphConfig,
+    TabularIngestionError,
+    build_graph_from_tabular_file,
+)
 from src.models.mpnn import HeterogeneousMPNN
 from src.ring.extract import extract_rings
 
@@ -32,6 +39,7 @@ app.add_middleware(
 
 GRAPH_PATH = Path(os.getenv("GRAPH_PATH", "data/synthetic_fraud_graph.pt"))
 MODEL_PATH = Path(os.getenv("MODEL_PATH", "data/fraud_model.pt"))
+MAX_TABULAR_UPLOAD_BYTES = 25 * 1024 * 1024
 
 
 class AnalyzeRequest(BaseModel):
@@ -209,6 +217,40 @@ class GenerateGraphRequest(BaseModel):
     threshold: float = 0.5
 
 
+async def _save_upload_to_tempfile(upload: UploadFile) -> Path:
+    suffix = Path(upload.filename or "").suffix.lower()
+    if suffix not in SUPPORTED_TABULAR_EXTENSIONS:
+        raise HTTPException(
+            status_code=400,
+            detail=(
+                f"Unsupported file type {suffix!r}. "
+                f"Supported types: {', '.join(SUPPORTED_TABULAR_EXTENSIONS)}"
+            ),
+        )
+
+    total_size = 0
+    temp_path: Path | None = None
+    try:
+        with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as handle:
+            temp_path = Path(handle.name)
+            while True:
+                chunk = await upload.read(1024 * 1024)
+                if not chunk:
+                    break
+                total_size += len(chunk)
+                if total_size > MAX_TABULAR_UPLOAD_BYTES:
+                    raise HTTPException(
+                        status_code=413,
+                        detail=f"Tabular upload exceeds {MAX_TABULAR_UPLOAD_BYTES} bytes limit.",
+                    )
+                handle.write(chunk)
+        return temp_path
+    except Exception:
+        if temp_path and temp_path.exists():
+            temp_path.unlink()
+        raise
+
+
 @app.post("/generate-graph")
 def generate_new_graph(request: GenerateGraphRequest | None = None) -> dict[str, Any]:
     """Generate a fresh synthetic transaction graph and run real GNN inference."""
@@ -260,7 +302,84 @@ def generate_new_graph(request: GenerateGraphRequest | None = None) -> dict[str,
     }
 
 
+@app.post("/analyze-tabular")
+async def analyze_tabular(
+    file: UploadFile = File(...),
+    threshold: float = Form(0.5),
+    top_k: int = Form(10),
+    user_id_column: str | None = Form(None),
+    merchant_id_column: str | None = Form(None),
+    device_id_column: str | None = Form(None),
+    shared_ip_column: str | None = Form(None),
+    amount_column: str | None = Form(None),
+    timestamp_column: str | None = Form(None),
+) -> dict[str, Any]:
+    """Ingest tabular input and run ring analysis against the canonical graph schema."""
+
+    if not file.filename:
+        raise HTTPException(status_code=400, detail="Uploaded file must include a filename.")
+
+    temp_path: Path | None = None
+    try:
+        temp_path = await _save_upload_to_tempfile(file)
+        config = TabularGraphConfig(
+            user_id_column=user_id_column,
+            merchant_id_column=merchant_id_column,
+            device_id_column=device_id_column,
+            shared_ip_column=shared_ip_column,
+            amount_column=amount_column,
+            timestamp_column=timestamp_column,
+        )
+        data, tabular_metadata = build_graph_from_tabular_file(temp_path, config=config)
+    except TabularIngestionError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    finally:
+        await file.close()
+        if temp_path and temp_path.exists():
+            temp_path.unlink()
+
+    m_path = MODEL_PATH
+    if not m_path.exists():
+        _, m_path = _ensure_artifacts()
+
+    try:
+        checkpoint = torch.load(m_path, weights_only=False)
+        model = HeterogeneousMPNN()
+        model.load_state_dict(checkpoint["model_state"])
+        model.eval()
+
+        with torch.no_grad():
+            logits = model(data)
+            probabilities = logits.softmax(dim=-1)[:, 1]
+
+        rings = extract_rings(
+            data=data,
+            nx_graph=None,
+            user_scores=probabilities,
+            threshold=threshold,
+            top_k=top_k,
+        )
+        for ring in rings:
+            ring["is_suspended"] = ring["ring_id"] in ENFORCEMENT_STATE
+
+        return {
+            "status": "success",
+            "total_rings": len(rings),
+            "rings": rings,
+            "metadata": {
+                "num_users": int(data["user"].num_nodes),
+                "num_merchants": int(data["merchant"].num_nodes),
+                "num_devices": int(data["device"].num_nodes),
+                "total_transactions": int(data[("user", "transacts", "merchant")].num_edges),
+                "threshold": threshold,
+                "source_format": Path(file.filename).suffix.lower(),
+                "graph_build": tabular_metadata,
+            },
+        }
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Inference error: {exc}") from exc
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("api.main:app", host="0.0.0.0", port=8000, reload=True)
-

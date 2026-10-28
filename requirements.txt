@@ -8,3 +8,6 @@ scikit-learn
 fastapi
 uvicorn
 pydantic
+openpyxl
+xlrd
+python-multipart
