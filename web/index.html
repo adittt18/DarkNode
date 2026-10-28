@@ -119,43 +119,43 @@
     }
 
     @keyframes defectiveBulbBlink {
-      /* ON: Yellow with subtle warm neon glow */
-      0%, 14% { color: #facc15; text-shadow: 0 0 8px rgba(250, 204, 21, 0.65), 0 0 16px rgba(250, 204, 21, 0.35); }
+      /* ON: Yellow (no glow) */
+      0%, 14% { color: #facc15; text-shadow: none; }
       /* OFF: White (defective flicker spike 1) */
       14.3% { color: #ffffff; text-shadow: none; }
-      15.1% { color: #facc15; text-shadow: 0 0 8px rgba(250, 204, 21, 0.65), 0 0 16px rgba(250, 204, 21, 0.35); }
+      15.1% { color: #facc15; text-shadow: none; }
       15.8% { color: #ffffff; text-shadow: none; }
-      16.9% { color: #facc15; text-shadow: 0 0 8px rgba(250, 204, 21, 0.65), 0 0 16px rgba(250, 204, 21, 0.35); }
+      16.9% { color: #facc15; text-shadow: none; }
       /* ON: Yellow steady */
-      17%, 38% { color: #facc15; text-shadow: 0 0 8px rgba(250, 204, 21, 0.65), 0 0 16px rgba(250, 204, 21, 0.35); }
+      17%, 38% { color: #facc15; text-shadow: none; }
       /* OFF: White (single stutter blink) */
       38.4% { color: #ffffff; text-shadow: none; }
-      39.5% { color: #facc15; text-shadow: 0 0 8px rgba(250, 204, 21, 0.65), 0 0 16px rgba(250, 204, 21, 0.35); }
+      39.5% { color: #facc15; text-shadow: none; }
       /* ON: Yellow steady */
-      39.6%, 55% { color: #facc15; text-shadow: 0 0 8px rgba(250, 204, 21, 0.65), 0 0 16px rgba(250, 204, 21, 0.35); }
+      39.6%, 55% { color: #facc15; text-shadow: none; }
       /* OFF: White (irregular double sputter) */
       55.4% { color: #ffffff; text-shadow: none; }
-      56.2% { color: #facc15; text-shadow: 0 0 8px rgba(250, 204, 21, 0.65), 0 0 16px rgba(250, 204, 21, 0.35); }
+      56.2% { color: #facc15; text-shadow: none; }
       57.0% { color: #ffffff; text-shadow: none; }
-      58.1% { color: #facc15; text-shadow: 0 0 8px rgba(250, 204, 21, 0.65), 0 0 16px rgba(250, 204, 21, 0.35); }
+      58.1% { color: #facc15; text-shadow: none; }
       59.3% { color: #ffffff; text-shadow: none; }
-      60.8% { color: #facc15; text-shadow: 0 0 8px rgba(250, 204, 21, 0.65), 0 0 16px rgba(250, 204, 21, 0.35); }
+      60.8% { color: #facc15; text-shadow: none; }
       /* ON: Yellow steady */
-      60.9%, 76% { color: #facc15; text-shadow: 0 0 8px rgba(250, 204, 21, 0.65), 0 0 16px rgba(250, 204, 21, 0.35); }
+      60.9%, 76% { color: #facc15; text-shadow: none; }
       /* OFF: White (quick glitch) */
       76.5% { color: #ffffff; text-shadow: none; }
-      77.3% { color: #facc15; text-shadow: 0 0 8px rgba(250, 204, 21, 0.65), 0 0 16px rgba(250, 204, 21, 0.35); }
+      77.3% { color: #facc15; text-shadow: none; }
       78.0% { color: #ffffff; text-shadow: none; }
-      78.7% { color: #facc15; text-shadow: 0 0 8px rgba(250, 204, 21, 0.65), 0 0 16px rgba(250, 204, 21, 0.35); }
+      78.7% { color: #facc15; text-shadow: none; }
       /* ON: Yellow to end */
-      78.8%, 100% { color: #facc15; text-shadow: 0 0 8px rgba(250, 204, 21, 0.65), 0 0 16px rgba(250, 204, 21, 0.35); }
+      78.8%, 100% { color: #facc15; text-shadow: none; }
     }
 
     .brand-title span.kicker {
       color: var(--yellow-primary);
       display: inline-block;
       font-weight: 800;
-      text-shadow: 0 0 8px rgba(250, 204, 21, 0.65), 0 0 16px rgba(250, 204, 21, 0.35);
+      text-shadow: none;
       animation: defectiveBulbBlink 6s infinite;
     }
 
@@ -2802,7 +2802,7 @@
       color: #facc15;
       display: inline-block;
       font-weight: 700;
-      text-shadow: 0 0 8px rgba(250, 204, 21, 0.65), 0 0 16px rgba(250, 204, 21, 0.35);
+      text-shadow: none;
       animation: defectiveBulbBlink 6s infinite;
     }
     .auth-brand-tag { margin-left: 4px; padding: 4px 7px; border: 1px solid var(--yellow-border); border-radius: 5px; color: var(--yellow-primary); font: 600 9px var(--font-mono); letter-spacing: .08em; }
@@ -2834,7 +2834,52 @@
     @keyframes authOrbit { to { transform: rotate(360deg); } }
     @keyframes authOrbitDot { to { transform: rotate(360deg); } }
     @media (max-width: 760px) { #auth-gate { padding: 14px; } .auth-shell { grid-template-columns: 1fr; min-height: auto; } .auth-visual { min-height: 300px; padding: 26px; border-right: 0; border-bottom: 1px solid var(--border-subtle); } .auth-title { font-size: 34px; } .auth-form-panel { padding: 28px 22px; } }
-  </style>
+  
+    .add-table-pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 6px;
+      background: rgba(250, 204, 21, 0.08);
+      color: var(--yellow-primary);
+      border: 1px solid var(--yellow-border);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      line-height: 1.3;
+    }
+    .add-table-pill-btn:hover {
+      background: rgba(250, 204, 21, 0.18);
+      border-color: var(--yellow-primary);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+    .sample-csv-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: #e5e7eb;
+    }
+    .sample-csv-table th {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--yellow-primary);
+      padding: 6px 8px;
+      text-align: left;
+      font-weight: 700;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .sample-csv-table td {
+      padding: 5px 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+    .sample-csv-table tr:hover td {
+      background: rgba(250, 204, 21, 0.04);
+    }
+</style>
 </head>
 <body class="authenticated">
 
@@ -2909,7 +2954,10 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#131415" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><circle cx="19" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><line x1="12" y1="9" x2="19" y2="6.5"/><line x1="12" y1="15" x2="5" y2="17.5"/></svg>
       </div>
       <div class="brand-title">Dark<span class="kicker">Node</span></div>
-      <span class="badge-pill">GNN-MPNN</span>
+      <button class="add-table-pill-btn" onclick="openTabularModal()" title="Insert or Upload Data Table (CSV, Excel, SQL)">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        <span>Add Data Table</span>
+      </button>
     </div>
 
     <!-- Header Stats -->
@@ -3327,6 +3375,129 @@
   </div>
 
   </div><!-- end #app-viewport-wrapper -->
+
+  <!-- Interactive Data Table Insertion Modal (Excel, CSV, SQL) -->
+  <div class="modal-backdrop" id="tabular-modal" onclick="closeTabularModal(event)">
+    <div class="modal-window modal-wide" onclick="event.stopPropagation()" style="max-width: 680px;">
+      <div class="modal-head">
+        <div class="modal-title-group">
+          <div class="brand-logo-mark" style="width:26px; height:26px; background: var(--yellow-primary); color: #131415; display: grid; place-items: center; border-radius: 6px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#131415" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+          <div>
+            <div class="modal-title">Insert Transaction Data Table</div>
+            <div class="modal-subtitle">ENDPOINT: POST /analyze-tabular &bull; FORMATS: EXCEL (.xlsx, .xls), CSV (.csv), SQL (.sql)</div>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="closeTabularModal()" aria-label="Close Modal">&times;</button>
+      </div>
+
+      <div class="modal-body" style="padding: 18px 24px; display: flex; flex-direction: column; gap: 15px;">
+        <!-- Supported Format Badges -->
+        <div style="display: flex; gap: 8px; align-items: center;">
+          <span style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Supported Formats:</span>
+          <span class="badge-pill" style="border: 1px solid rgba(250, 204, 21, 0.4); color: var(--yellow-primary); background: rgba(250, 204, 21, 0.08); font-size: 10px;">CSV (.csv)</span>
+          <span class="badge-pill" style="border: 1px solid rgba(250, 204, 21, 0.4); color: var(--yellow-primary); background: rgba(250, 204, 21, 0.08); font-size: 10px;">EXCEL (.xlsx / .xls)</span>
+          <span class="badge-pill" style="border: 1px solid rgba(250, 204, 21, 0.4); color: var(--yellow-primary); background: rgba(250, 204, 21, 0.08); font-size: 10px;">SQL (.sql)</span>
+        </div>
+
+        <!-- File Upload Dropzone -->
+        <div id="tabular-dropzone" style="border: 2px dashed rgba(250, 204, 21, 0.35); border-radius: 9px; padding: 20px; text-align: center; background: rgba(250, 204, 21, 0.02); cursor: pointer; transition: all 0.2s ease;" onclick="document.getElementById('tabular-file-input').click()">
+          <input type="file" id="tabular-file-input" accept=".csv,.xlsx,.xls,.sql" style="display: none;" onchange="handleTabularFileSelect(event)">
+          <div style="margin-bottom: 6px; color: var(--yellow-primary);">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="12" y2="12"/><line x1="15" y1="15" x2="12" y2="12"/></svg>
+          </div>
+          <div id="tabular-filename-display" style="font-size: 13px; font-weight: 600; color: #f3f4f6;">Click to browse or drop CSV, Excel (.xlsx/.xls) or SQL (.sql) file here</div>
+          <div style="font-size: 11px; color: var(--text-muted); margin-top: 3px;">Max file size: 25MB &bull; Automatic schema mapping & MPNN ring extraction</div>
+        </div>
+
+        <!-- Sample CSV Data Table (matching required schema) -->
+        <div style="background: rgba(18, 19, 21, 0.7); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 12px 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <div>
+              <span style="font-size: 11px; font-weight: 700; color: #ffffff;">Sample Data Table (Matching Canonical Schema)</span>
+              <span style="font-size: 10px; color: var(--text-muted); margin-left: 6px;">user_id, merchant_id, device_id, shared_ip, amount, timestamp</span>
+            </div>
+            <div style="display: flex; gap: 6px;">
+              <button type="button" class="btn btn-outline" style="height: 24px; font-size: 10px; padding: 0 8px;" onclick="loadDemoTabularCsv()">Load into Input</button>
+              <button type="button" class="btn btn-outline" style="height: 24px; font-size: 10px; padding: 0 8px;" onclick="downloadSampleCsv()">Download .CSV</button>
+            </div>
+          </div>
+          <div style="overflow-x: auto; max-height: 125px; border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 5px;">
+            <table class="sample-csv-table">
+              <thead>
+                <tr><th>user_id</th><th>merchant_id</th><th>device_id</th><th>shared_ip</th><th>amount</th><th>timestamp</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>usr_101</td><td>merch_alpha</td><td>dev_901</td><td>192.168.1.10</td><td>4800.00</td><td>1698471000</td></tr>
+                <tr><td>usr_102</td><td>merch_alpha</td><td>dev_901</td><td>192.168.1.10</td><td>4950.00</td><td>1698471300</td></tr>
+                <tr><td>usr_103</td><td>merch_beta</td><td>dev_902</td><td>192.168.1.10</td><td>4900.00</td><td>1698471600</td></tr>
+                <tr><td>usr_104</td><td>merch_beta</td><td>dev_902</td><td>10.0.4.15</td><td>120.00</td><td>1698472000</td></tr>
+                <tr><td>usr_105</td><td>merch_gamma</td><td>dev_903</td><td>10.0.4.15</td><td>3500.00</td><td>1698472400</td></tr>
+                <tr><td>usr_106</td><td>merch_gamma</td><td>dev_903</td><td>192.168.1.10</td><td>4850.00</td><td>1698472800</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Detection Parameters -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+          <div>
+            <label style="font-size: 10px; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 4px;">DETECTION THRESHOLD</label>
+            <input type="number" id="tabular-threshold" class="settings-input" value="0.5" step="0.05" min="0.1" max="0.99" style="height: 34px; width: 100%;">
+          </div>
+          <div>
+            <label style="font-size: 10px; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 4px;">TOP K SYNDICATES</label>
+            <input type="number" id="tabular-top-k" class="settings-input" value="10" min="1" max="50" style="height: 34px; width: 100%;">
+          </div>
+        </div>
+
+        <!-- Advanced Column Mapping (Optional) -->
+        <details style="background: rgba(20, 21, 23, 0.6); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 9px 12px;">
+          <summary style="font-size: 11px; font-weight: 600; color: var(--yellow-primary); cursor: pointer; user-select: none;">
+            Custom Column Overrides (Optional &bull; auto-detected if column names match)
+          </summary>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; font-size: 10.5px;">
+            <div>
+              <label style="color: var(--text-muted); font-size: 9.5px; font-weight: 600;">USER ID COLUMN</label>
+              <input type="text" id="col-user-id" class="settings-input" placeholder="auto (user_id / 1st col)" style="height: 28px; margin-top: 2px;">
+            </div>
+            <div>
+              <label style="color: var(--text-muted); font-size: 9.5px; font-weight: 600;">MERCHANT ID COLUMN</label>
+              <input type="text" id="col-merchant-id" class="settings-input" placeholder="auto (merchant_id)" style="height: 28px; margin-top: 2px;">
+            </div>
+            <div>
+              <label style="color: var(--text-muted); font-size: 9.5px; font-weight: 600;">DEVICE ID COLUMN</label>
+              <input type="text" id="col-device-id" class="settings-input" placeholder="auto (device_id)" style="height: 28px; margin-top: 2px;">
+            </div>
+            <div>
+              <label style="color: var(--text-muted); font-size: 9.5px; font-weight: 600;">SHARED IP COLUMN</label>
+              <input type="text" id="col-shared-ip" class="settings-input" placeholder="auto (shared_ip / ip)" style="height: 28px; margin-top: 2px;">
+            </div>
+            <div>
+              <label style="color: var(--text-muted); font-size: 9.5px; font-weight: 600;">AMOUNT COLUMN</label>
+              <input type="text" id="col-amount" class="settings-input" placeholder="auto (amount)" style="height: 28px; margin-top: 2px;">
+            </div>
+            <div>
+              <label style="color: var(--text-muted); font-size: 9.5px; font-weight: 600;">TIMESTAMP COLUMN</label>
+              <input type="text" id="col-timestamp" class="settings-input" placeholder="auto (timestamp)" style="height: 28px; margin-top: 2px;">
+            </div>
+          </div>
+        </details>
+
+        <!-- Status / Feedback Container -->
+        <div id="tabular-status-box" style="display: none; padding: 10px 14px; border-radius: 8px; font-size: 11px; font-family: var(--font-mono);"></div>
+      </div>
+
+      <div class="modal-foot" style="padding: 14px 24px; border-top: 1px solid var(--border-subtle); display: flex; justify-content: flex-end; gap: 10px;">
+        <button type="button" class="btn btn-outline" onclick="closeTabularModal()">Cancel</button>
+        <button type="button" class="btn btn-primary" id="run-tabular-btn" onclick="submitTabularIngestion()" style="font-weight: 700; color: #000000; background: var(--yellow-primary);">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Analyze Data Table
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- Interactive System Settings & Compliance Modal -->
   <div class="modal-backdrop" id="settings-modal" onclick="closeSettingsModal(event)">
@@ -24243,60 +24414,114 @@
     // ==========================================
     function openTabularModal() {
       const modal = document.getElementById("tabular-modal");
-      const backdrop = document.getElementById("tabular-modal-backdrop");
-      if (modal && backdrop) {
-        modal.classList.add("open");
-        backdrop.classList.add("open");
-      }
+      if (modal) modal.classList.add("open");
     }
 
-    function closeTabularModal() {
+    function closeTabularModal(e) {
+      if (e && e.target !== document.getElementById("tabular-modal") && !e.target.closest(".modal-close-btn") && !e.target.closest(".btn-outline")) return;
       const modal = document.getElementById("tabular-modal");
-      const backdrop = document.getElementById("tabular-modal-backdrop");
-      if (modal && backdrop) {
-        modal.classList.remove("open");
-        backdrop.classList.remove("open");
-      }
+      if (modal) modal.classList.remove("open");
     }
 
-    function handleTabularFileSelect(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-      selectedTabularFile = file;
-      const display = document.getElementById("tabular-filename-display");
-      if (display) {
-        const sizeMb = (file.size / (1024 * 1024)).toFixed(2);
-        display.innerHTML = `<span style="color:var(--yellow-primary); font-weight:700;">${file.name}</span> (${sizeMb} MB)`;
-      }
+    const SAMPLE_CSV_CONTENT = [
+      "user_id,merchant_id,device_id,shared_ip,amount,timestamp",
+      "usr_101,merch_alpha,dev_901,192.168.1.10,4800.00,1698471000",
+      "usr_102,merch_alpha,dev_901,192.168.1.10,4950.00,1698471300",
+      "usr_103,merch_beta,dev_902,192.168.1.10,4900.00,1698471600",
+      "usr_104,merch_beta,dev_902,10.0.4.15,120.00,1698472000",
+      "usr_105,merch_gamma,dev_903,10.0.4.15,3500.00,1698472400",
+      "usr_106,merch_gamma,dev_903,192.168.1.10,4850.00,1698472800",
+      "usr_107,merch_delta,dev_904,172.16.0.8,4920.00,1698473200",
+      "usr_108,merch_delta,dev_904,172.16.0.8,4880.00,1698473600"
+    ].join("
+");
+
+    function downloadSampleCsv() {
+      const blob = new Blob([SAMPLE_CSV_CONTENT], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.setAttribute("href", url);
+      link.setAttribute("download", "darknode_sample_transactions.csv");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      showToast("Downloaded sample transaction CSV table.", "Sample Table", "success");
     }
 
     function loadDemoTabularCsv() {
-      const csvData = [
-        "user_id,merchant_id,device_id,shared_ip,amount,timestamp",
-        "usr_101,merch_alpha,dev_901,192.168.1.10,4800.0,1698471000",
-        "usr_102,merch_alpha,dev_901,192.168.1.10,4950.0,1698471300",
-        "usr_103,merch_beta,dev_902,192.168.1.10,4900.0,1698471600",
-        "usr_104,merch_beta,dev_902,10.0.4.15,120.0,1698472000",
-        "usr_105,merch_gamma,dev_903,10.0.4.15,3500.0,1698472400",
-        "usr_106,merch_gamma,dev_903,192.168.1.10,4850.0,1698472800",
-        "usr_107,merch_delta,dev_904,172.16.0.8,4920.0,1698473200",
-        "usr_108,merch_delta,dev_904,172.16.0.8,4880.0,1698473600"
-      ].join("
-");
-
-      const blob = new Blob([csvData], { type: "text/csv" });
-      selectedTabularFile = new File([blob], "demo_aml_transactions.csv", { type: "text/csv" });
+      const blob = new Blob([SAMPLE_CSV_CONTENT], { type: "text/csv" });
+      selectedTabularFile = new File([blob], "darknode_sample_transactions.csv", { type: "text/csv" });
 
       const display = document.getElementById("tabular-filename-display");
       if (display) {
-        display.innerHTML = `<span style="color:var(--yellow-primary); font-weight:700;">demo_aml_transactions.csv</span> (Sample AML Batch)`;
+        display.innerHTML = `<span style="color:var(--yellow-primary); font-weight:700;">darknode_sample_transactions.csv</span> (Sample Table Loaded)`;
       }
-      showToast("Loaded sample AML transaction batch with circular structuring patterns.", "Demo Data", "info");
+      showToast("Loaded sample AML transaction table into input.", "Sample Table", "info");
+    }
+
+    async function handleTabularFileSelect(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const ext = file.name.split('.').pop().toLowerCase();
+      const display = document.getElementById("tabular-filename-display");
+
+      if (ext === 'sql') {
+        // Parse SQL INSERT INTO statements into CSV data
+        try {
+          const text = await file.text();
+          const parsedCsv = parseSqlInsertToCsv(text);
+          if (parsedCsv) {
+            const blob = new Blob([parsedCsv], { type: "text/csv" });
+            selectedTabularFile = new File([blob], file.name.replace(/\.sql$/i, '.csv'), { type: "text/csv" });
+            if (display) {
+              display.innerHTML = `<span style="color:var(--yellow-primary); font-weight:700;">${file.name}</span> (Parsed SQL to Table)`;
+            }
+            showToast("Successfully parsed SQL statements into table format.", "SQL Processed", "info");
+            return;
+          }
+        } catch (e) {
+          console.warn("SQL parse fallback:", e);
+        }
+      }
+
+      selectedTabularFile = file;
+      if (display) {
+        const sizeMb = (file.size / (1024 * 1024)).toFixed(2);
+        display.innerHTML = `<span style="color:var(--yellow-primary); font-weight:700;">${file.name}</span> (${sizeMb} MB &bull; .${ext.toUpperCase()})`;
+      }
+    }
+
+    function parseSqlInsertToCsv(sqlText) {
+      // Basic parser for INSERT INTO ... VALUES (...)
+      const valueMatches = sqlText.match(/VALUES\s*\(([\s\S]*?)\);/i) || sqlText.match(/\(([\s\S]*?)\)/g);
+      if (!valueMatches) return null;
+
+      // Extract rows
+      const rows = [];
+      const lines = sqlText.split(';');
+      for (const line of lines) {
+        const match = line.match(/INSERT\s+INTO\s+[^\(]*\(([^\)]+)\)\s*VALUES\s*([\s\S]*)/i);
+        if (match) {
+          const cols = match[1].split(',').map(c => c.trim().replace(/[`"\[\]]/g, ''));
+          if (rows.length === 0) rows.push(cols.join(','));
+          const valsMatch = match[2].match(/\(([^\)]+)\)/g);
+          if (valsMatch) {
+            for (const vGroup of valsMatch) {
+              const cleanVals = vGroup.replace(/[\(\)]/g, '').split(',').map(v => v.trim().replace(/^['"]|['"]$/g, ''));
+              rows.push(cleanVals.join(','));
+            }
+          }
+        }
+      }
+      return rows.length > 1 ? rows.join('
+') : null;
     }
 
     async function submitTabularIngestion() {
       if (!selectedTabularFile) {
-        showToast("Please choose a .csv, .xlsx, or .xls file first.", "File Required", "warning");
+        showToast("Please choose a CSV, Excel (.xlsx/.xls), or SQL table first.", "Table Required", "warning");
         return;
       }
 
@@ -24384,7 +24609,7 @@
         setTimeout(() => {
           closeTabularModal();
           switchDatasetSection('tabular');
-          showToast(`Successfully analyzed tabular dataset: ${TABULAR_RINGS.length} fraud syndicates detected.`, "Tabular Analysis Complete", "success");
+          showToast(`Successfully analyzed table: ${TABULAR_RINGS.length} fraud syndicates detected.`, "Tabular Analysis Complete", "success");
         }, 800);
 
       } catch (err) {
@@ -24401,12 +24626,11 @@
           runBtn.disabled = false;
           runBtn.innerHTML = `
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            Analyze Tabular File
+            Analyze Data Table
           `;
         }
       }
     }
-
   </script>
 </body>
 </html>
