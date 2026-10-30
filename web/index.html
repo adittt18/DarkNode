@@ -2879,6 +2879,63 @@
     .sample-csv-table tr:hover td {
       background: rgba(250, 204, 21, 0.04);
     }
+  /* Final robot interaction polish: the game-like helper sits on the right,
+     follows the pointer with its whole head, and nods yes on hover. */
+  .auth-demo-fill {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .auth-demo-fill__copy {
+    order: 1;
+    flex: 1 1 auto;
+    text-align: left;
+  }
+
+  .auth-robot {
+    order: 2;
+    flex: 0 0 auto;
+    transform: translateY(1px);
+  }
+
+  .auth-robot__head {
+    transform: translate(
+      calc(var(--look-x, 0) * 5px),
+      calc(var(--look-y, 0) * 4px)
+    );
+    transform-origin: 50% 80%;
+    transition: transform 120ms ease-out;
+  }
+
+  .auth-robot.is-happy .auth-robot__head {
+    animation: auth-robot-yes 520ms ease-in-out infinite alternate;
+  }
+
+  .auth-robot.is-happy .auth-robot__blush {
+    opacity: 0;
+  }
+
+  .auth-robot.is-happy .auth-robot__mouth {
+    width: 10px;
+    height: 5px;
+    border-radius: 0 0 10px 10px;
+    border-bottom: 2px solid currentColor;
+  }
+
+  @keyframes auth-robot-yes {
+    from { transform: translate(calc(var(--look-x, 0) * 5px), calc(var(--look-y, 0) * 4px)) rotate(-3deg); }
+    to { transform: translate(calc(var(--look-x, 0) * 5px), calc(var(--look-y, 0) * 4px)) rotate(3deg); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .auth-robot__head,
+    .auth-robot.is-happy .auth-robot__head {
+      animation: none;
+      transition: none;
+    }
+  }
 </style>
   <style>
     .auth-demo-fill { width: 100%; display: flex; align-items: center; gap: 12px; margin-top: 14px; padding: 12px 14px; border: 1px solid rgba(255,210,31,.42); border-radius: 10px; background: linear-gradient(135deg, rgba(255,210,31,.12), rgba(255,210,31,.03)); color: var(--yellow-primary); cursor: pointer; text-align: left; transition: transform .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease; }
