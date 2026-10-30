@@ -2936,6 +2936,19 @@
       transition: none;
     }
   }
+  .auth-robot {
+    width: 28px;
+    height: 28px;
+    background-image: url("data:application/octet-stream;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAqCAYAAADxughHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAVcSURBVGhD7ZlbbBRlFMd/M+10Z6aXbdluW4PZNiEF4QFESBUwJCUBISXWSyLXChiDSpQgJlKrXGIiUZSYABEkaqwPRHjCpOBLeRFISpsAAjWB0hbSwoZu2WW3ey3dXR/abpmvhc62WyTEX3Ie9pz/7jf/zHfOfJOVMrNy4jwFSBNppKS4mN27vwKp/3Nrayvbt+8UZSlBFhOpRNU0Zs+ezStLlrBk8WLmzpkrSlLGhBoBkGUZi8VCRkYGipIullPGhBq5efMm26qr8fl8tLS08NHmLaIkZUyokVAoREvLdfr6+ggEgly9elWUpIwJNfIgkjTQ8RPEYzMy0Tw1Rsb8HLFaraxevYoXy8rEkgFN15gxYwaRcJgrV5rFsgF/wM/p02c4evSYWBqVMRux2WxUb/uU9evXiaVhDPZHPP7opbpcLg4d+pH9+w+IpVEZ19aSJAlN00YNVVVRVXVYXgxLRoa4hGlM3xFd1ygrK0NTNQCUDIWS4hKsVqsoHTPxeAyv18f169cTObfbzbnGRoNuJEwbyczMZOWKt9j6yVYAuu7cYeeuL/mn+dH7PhlUVaW8vJzqz7YBcKuzk337DlB34oQoHUZSWytdUSh2OCh2OCgseoZgKEj33bspC7fHQ180OrRGYSGybO4SzalGIS8vl3c2bEjEyhUrmDJliigDQFEUpk2batAvr6gQZUmTEiMWi8qCBfOpqammpqaajRvfRVNVUQYDA8LhcCS0mzd/yJw5L4iypEmJEUmSUDWVoqIiioqKsNlsosSAoigJbX6+HfUhppMhJUaeBFJmJBQM0dBwjoaGc1y+fEUsG/D7/Qltc4qmnpSdk2t6/K5Zs5rvvt0DQEdHJ2+vW09TU9PAVikkPb3/xanvfh+u7m7C4bDwK/3bUNd1CgrsiVw4HMHpdKLrOq9VVnL48CEA2tra+GL7DurqTIzftLQ0zIY4CgePHvfv36ejo5P29hu0t9+go7NzRBMMHFMCgUBC295+A6fTOSQQjvuyLA+7jpFCliQJs/E4GGkV8TpGipT1yH/NU2NEypuUb7rZV61ayZ5vvgbA5/NRX38Ku32oacdLb28ESZJYtGgRDDT7jp27OHnyT1E6jKSMLK+oYN78lwDIUDIoLS1l1qyZonTM+P1+zp+/QOetTgCCgSBnzp5NrRFZlsnOzsZi6X9nyMvLY9OmD6hau1aUjhmXy8VPP/9CbW0tDEy4cDhCT0+PKB2G6R6JxWJ4vV66ulx0dbno7r5LODTyiB0rsViMgD+QWMPl6jZlgmTuiIjNZmPrx1uorHyV0EMMybJkOEfF43F6e3uJRmMGHQN3PBQKcuTI7/xw8KBYHpUxG0lLSyM/34bdbmfmzOcpdpQY6j09Pk6f+YtAIJDIybKEPd/OwoXlBm0kEqG1rZVLly7i9Xpxu92GuhnSNE3fJSbNMPiE9vsDTMrLJzMzi3A4kgiPx0NjUyNOpxO3243b7cbj8RCPg8NRYtD6/X7a2ttobr5CKBQSlzKF6R550vnfSLIoisLkyc9SUFCAoqQZQtMsWHNyxK8kxZibfRBd15k/72VKS6ca8vfueThxsg6fzwvA9OnP8Vvtr6Snp6NpukHr83k5euwYe/d+b8gnw7iN5FqtvP7Gm+TlTjLkg8EAF/++wL17Hm7fdqLrGlVVVQbNILFolNa2No4f/0MsmWbcRgoK7HxeU8OyZUsN+VgcIuEw165dY+N77+Pz+cjKyjJoHqT/P5ShUZ0s4zaSk5PDsqVLyc7JFksAeL1e6utP4fF4xFJKGbcRWZbRdeOef5BYLEYkEiEajYqllDJuI08Kj238TjT/Apy1LSoIO6R4AAAAAElFTkSuQmCC");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+
+  .auth-robot__antenna,
+  .auth-robot__head {
+    opacity: 0;
+  }
 </style>
   <style>
     .auth-demo-fill { width: 100%; display: flex; align-items: center; gap: 12px; margin-top: 14px; padding: 12px 14px; border: 1px solid rgba(255,210,31,.42); border-radius: 10px; background: linear-gradient(135deg, rgba(255,210,31,.12), rgba(255,210,31,.03)); color: var(--yellow-primary); cursor: pointer; text-align: left; transition: transform .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease; }
