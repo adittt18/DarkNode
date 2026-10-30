@@ -2977,16 +2977,6 @@
       transform: translate(calc(var(--look-x, 0) * 5px), calc(var(--look-y, 0) * 4px)) rotate(4deg);
     }
   }
-  button.auth-demo-fill .auth-robot {
-    transform: translate(
-      calc(var(--look-x, 0) * 5px),
-      calc(var(--look-y, 0) * 4px)
-    ) !important;
-  }
-
-  button.auth-demo-fill .auth-robot.is-happy {
-    animation: auth-robot-body-yes 520ms ease-in-out infinite alternate !important;
-  }
 </style>
   <style>
     .auth-demo-fill { width: 100%; display: flex; align-items: center; gap: 12px; margin-top: 14px; padding: 12px 14px; border: 1px solid rgba(255,210,31,.42); border-radius: 10px; background: linear-gradient(135deg, rgba(255,210,31,.12), rgba(255,210,31,.03)); color: var(--yellow-primary); cursor: pointer; text-align: left; transition: transform .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease; }
@@ -25210,13 +25200,42 @@
 </script>
 </body>
 <script>
+  const robotButton = document.querySelector("#auth-demo-fill");
+  const robotImage = document.querySelector(".auth-robot");
+  if (robotButton && robotImage) {
+    robotButton.addEventListener("mouseenter", () => robotImage.style.removeProperty("transform"));
+    robotButton.addEventListener("mouseleave", () => robotImage.style.removeProperty("transform"));
+  }
+
   document.addEventListener("mousemove", function (event) {
     const robot = document.querySelector(".auth-robot");
     if (!robot || robot.classList.contains("is-happy")) return;
     const rect = robot.getBoundingClientRect();
     const x = Math.max(-1, Math.min(1, (event.clientX - (rect.left + rect.width / 2)) / 120));
     const y = Math.max(-1, Math.min(1, (event.clientY - (rect.top + rect.height / 2)) / 120));
-    robot.style.transform = "translate(" + (x * 5).toFixed(2) + "px, " + (y * 4).toFixed(2) + "px)";
+    robot.style.setProperty("--move-x", (x * 5).toFixed(2) + "px");
+    robot.style.setProperty("--move-y", (y * 4).toFixed(2) + "px");
   }, { passive: true });
 </script>
+<style>
+  /* Keep the provided robot crisp and visible against the yellow control. */
+  button.auth-demo-fill .auth-robot {
+    width: 38px !important;
+    height: 38px !important;
+    flex: 0 0 38px !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    z-index: 2;
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.95)) brightness(1.3) contrast(1.35);
+    background-size: 34px 41px !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    pointer-events: auto;
+  }
+</style>
+<style>
+  button.auth-demo-fill .auth-robot {
+    background-position: calc(50% + var(--move-x, 0px)) calc(50% + var(--move-y, 0px)) !important;
+  }
+</style>
 </html>
