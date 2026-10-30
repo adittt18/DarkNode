@@ -2880,6 +2880,38 @@
       background: rgba(250, 204, 21, 0.04);
     }
 </style>
+  <style>
+    .auth-demo-fill { width: 100%; display: flex; align-items: center; gap: 12px; margin-top: 14px; padding: 12px 14px; border: 1px solid rgba(255,210,31,.42); border-radius: 10px; background: linear-gradient(135deg, rgba(255,210,31,.12), rgba(255,210,31,.03)); color: var(--yellow-primary); cursor: pointer; text-align: left; transition: transform .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease; }
+    .auth-demo-fill:hover, .auth-demo-fill:focus-visible { transform: translateY(-1px); border-color: var(--yellow-primary); background: linear-gradient(135deg, rgba(255,210,31,.2), rgba(255,210,31,.06)); box-shadow: 0 8px 22px rgba(0,0,0,.22), 0 0 0 3px rgba(255,210,31,.12); outline: none; }
+    .auth-demo-fill:active { transform: translateY(0); }
+    .auth-demo-fill__icon { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; background: rgba(255,210,31,.16); font-size: 14px; }
+    .auth-demo-fill__copy { display: grid; gap: 2px; flex: 1; }
+    .auth-demo-fill__copy strong { font-size: 12px; letter-spacing: .04em; text-transform: uppercase; }
+    .auth-demo-fill__copy small { color: rgba(255,255,255,.58); font-size: 10px; letter-spacing: .02em; }
+    .auth-demo-fill__arrow { font-size: 18px; transition: transform .18s ease; }
+    .auth-demo-fill:hover .auth-demo-fill__arrow, .auth-demo-fill:focus-visible .auth-demo-fill__arrow { transform: translateX(3px); }
+    .brand-title + svg { display: none; }
+    .auth-note { display: none !important; }
+    .auth-demo-fill { height: 46px; justify-content: flex-start; gap: 10px; margin-top: 14px; padding: 0 14px; border: 0; border-radius: 8px; background: var(--yellow-primary); color: #000; font: 800 13.5px "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; text-align: left; box-shadow: none; }
+    .auth-demo-fill:hover, .auth-demo-fill:focus-visible { transform: translateY(-1px); border-color: transparent; background: #ffe15c; box-shadow: 0 8px 20px rgba(250,204,21,.16); outline: none; }
+    .auth-demo-fill:active { transform: translateY(0); }
+    .auth-demo-fill__copy { display: block; flex: 1; }
+    .auth-demo-fill__copy strong { font-size: inherit; letter-spacing: .01em; text-transform: uppercase; }
+    .auth-robot { --look-x: 0; --look-y: 0; position: relative; display: inline-block; width: 28px; height: 28px; flex: 0 0 28px; }
+    .auth-robot__antenna { position: absolute; left: 13px; top: 0; width: 2px; height: 4px; background: #000; }
+    .auth-robot__antenna::after { content: ""; position: absolute; left: -2px; top: -2px; width: 6px; height: 6px; border-radius: 50%; background: #000; }
+    .auth-robot__head { position: absolute; left: 2px; top: 5px; width: 24px; height: 19px; border: 2px solid #000; border-radius: 7px; background: rgba(255,255,255,.3); }
+    .auth-robot__eye { position: absolute; top: 5px; width: 4px; height: 4px; border-radius: 50%; background: #000; transform: translate(calc(var(--look-x) * 2px), calc(var(--look-y) * 2px)); transition: transform .12s ease; }
+    .auth-robot__eye--left { left: 5px; }
+    .auth-robot__eye--right { right: 5px; }
+    .auth-robot__mouth { position: absolute; left: 8px; top: 12px; width: 8px; height: 3px; border-bottom: 2px solid #000; border-radius: 0 0 8px 8px; }
+    .auth-robot__blush { position: absolute; top: 10px; width: 4px; height: 2px; border-radius: 50%; background: #f06a77; opacity: 0; transition: opacity .18s ease; }
+    .auth-robot__blush--left { left: 1px; }
+    .auth-robot__blush--right { right: 1px; }
+    .auth-robot.is-happy .auth-robot__eye { transform: translateY(1px) scaleY(.65); }
+    .auth-robot.is-happy .auth-robot__mouth { height: 6px; border-bottom-width: 2px; }
+    .auth-robot.is-happy .auth-robot__blush { opacity: 1; }
+  </style>
 </head>
 <body>
 
@@ -2902,8 +2934,18 @@
         <div class="auth-hud-bottom">LIVE RISK SIGNALS</div>
       </div>
       <div class="auth-form-panel"><div class="auth-form-wrap"><h2 class="auth-form-heading" id="auth-form-title">Sign in to DarkNode</h2><p class="auth-form-subheading" id="auth-form-subtitle">Use your approved employee identity to enter the intelligence console.</p><div class="auth-tabs"><button class="auth-tab active" type="button" id="auth-signin-tab">SIGN IN</button><button class="auth-tab" type="button" id="auth-request-tab">REQUEST ACCESS</button></div><form id="auth-form" novalidate><label class="auth-field">Work email<input id="auth-email" type="email" autocomplete="username" placeholder="name@approved-organization.gov" required></label><label class="auth-field">Employee ID<input id="auth-employee-id" type="text" autocomplete="off" placeholder="DN-AML-0042" required></label><label class="auth-field">Authorized sector<select id="auth-sector"><option value="AML">AML / Financial Crime</option><option value="FRAUD">Fraud Intelligence</option><option value="RISK">Risk &amp; Compliance</option><option value="FIU">Financial Intelligence Unit</option></select></label><label class="auth-field" id="auth-password-field">Passphrase<input id="auth-password" type="password" autocomplete="current-password" placeholder="Enter your secure passphrase" required></label><div class="auth-request-fields" id="auth-request-fields"><label class="auth-field">Organization<input id="auth-organization" type="text" placeholder="Your institution or agency"></label><label class="auth-field">Reason for access<input id="auth-access-reason" type="text" placeholder="Describe your approved operational need"></label></div><button class="auth-submit" id="auth-submit" type="submit">VERIFY EMPLOYEE ACCESS</button><div style="display: flex; gap: 8px; margin-top: 14px;">
-              <button type="button" class="btn btn-outline" style="width: 100%; height: 32px; font-size: 11px; color: var(--yellow-primary); border-color: var(--yellow-border);" onclick="quickFillDemoAuth()">
-                ⚡ Autofill Demo Credentials
+              <button type="button" class="auth-demo-fill" id="auth-demo-fill" aria-label="Fill the approved demo credentials" onclick="quickFillDemoAuth()">
+                <span class="auth-robot" aria-hidden="true">
+                  <span class="auth-robot__antenna"></span>
+                  <span class="auth-robot__head">
+                    <span class="auth-robot__eye auth-robot__eye--left"></span>
+                    <span class="auth-robot__eye auth-robot__eye--right"></span>
+                    <span class="auth-robot__mouth"></span>
+                    <span class="auth-robot__blush auth-robot__blush--left"></span>
+                    <span class="auth-robot__blush auth-robot__blush--right"></span>
+                  </span>
+                </span>
+                <span class="auth-demo-fill__copy"><strong>Autofill demo access</strong></span>
               </button>
             </div><div class="auth-message" id="auth-message" role="status" aria-live="polite"></div></form><p class="auth-note">Access is limited to approved personnel and selected operational sectors. All sessions are audited.</p></div></div>
     </div>
@@ -2958,9 +3000,8 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#131415" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><circle cx="19" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><line x1="12" y1="9" x2="19" y2="6.5"/><line x1="12" y1="15" x2="5" y2="17.5"/></svg>
       </div>
       <div class="brand-title">Dark<span class="kicker">Node</span></div>
-      <button class="add-table-pill-btn" onclick="openTabularModal()" title="Insert or Upload Data Table (CSV, Excel, SQL)">
+      <!-- Data-table import is available from the Ingest Tabular workflow. -->
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        <span>Add Data Table</span>
       </button>
     </div>
 
@@ -23525,6 +23566,32 @@
 
     const DARKNODE_AUTH_POLICY = { approvedDomains: ["darknode.gov", "aml.gov", "fiu.gov", "bank.example"], sectorPrefixes: { AML: "DN-AML-", FRAUD: "DN-FRD-", RISK: "DN-RSK-", FIU: "DN-FIU-" } };
     function setAuthMessage(message, success = false) { const node = document.getElementById("auth-message"); if (!node) return; node.textContent = message; node.classList.toggle("success", success); }
+    function quickFillDemoAuth() {
+      const values = { "auth-email": "analyst@darknode.gov", "auth-employee-id": "DN-AML-0042", "auth-password": "DarkNodeDemo!42" };
+      Object.entries(values).forEach(([id, value]) => { const field = document.getElementById(id); if (field) field.value = value; });
+      const sector = document.getElementById("auth-sector");
+      if (sector) sector.value = "AML";
+      setAuthMessage("Demo access details loaded. Verify employee access to continue.", true);
+    }
+    function initAuthRobot() {
+      const button = document.getElementById("auth-demo-fill");
+      const robot = button?.querySelector(".auth-robot");
+      if (!button || !robot) return;
+      const trackCursor = (event) => {
+        const rect = robot.getBoundingClientRect();
+        const dx = event.clientX - (rect.left + rect.width / 2);
+        const dy = event.clientY - (rect.top + rect.height / 2);
+        const distance = Math.max(Math.hypot(dx, dy), 1);
+        robot.style.setProperty("--look-x", Math.max(-1, Math.min(1, dx / distance)).toFixed(3));
+        robot.style.setProperty("--look-y", Math.max(-1, Math.min(1, dy / distance)).toFixed(3));
+      };
+      document.addEventListener("mousemove", trackCursor, { passive: true });
+      button.addEventListener("mouseenter", () => robot.classList.add("is-happy"));
+      button.addEventListener("mouseleave", () => robot.classList.remove("is-happy"));
+    }
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initAuthRobot);
+    else initAuthRobot();
+
     function setAuthMode(mode) { const request = mode === "signup"; document.getElementById("auth-signin-tab")?.classList.toggle("active", !request); document.getElementById("auth-request-tab")?.classList.toggle("active", request); document.getElementById("auth-form-title").textContent = request ? "Create an access request" : "Sign in to DarkNode"; document.getElementById("auth-form-subtitle").textContent = request ? "Register your employee profile for operations-desk approval." : "Use your approved employee identity to enter the intelligence console."; document.getElementById("auth-password-field").style.display = request ? "none" : "block"; document.getElementById("auth-request-fields").classList.toggle("visible", request); document.getElementById("auth-submit").textContent = request ? "SUBMIT ENROLLMENT" : "VERIFY EMPLOYEE ACCESS"; document.getElementById("auth-form").dataset.mode = mode; setAuthMessage(""); }
     function validateEmployeeAccess() { const email = document.getElementById("auth-email").value.trim().toLowerCase(); const employeeId = document.getElementById("auth-employee-id").value.trim().toUpperCase(); const sector = document.getElementById("auth-sector").value; const password = document.getElementById("auth-password").value; const domain = email.split("@")[1] || ""; if (!email || !email.includes("@") || !DARKNODE_AUTH_POLICY.approvedDomains.includes(domain)) return "This organization is not approved for DarkNode access."; if (!/^DN-[A-Z]{3,5}-[0-9]{3,6}$/.test(employeeId) || !employeeId.startsWith(DARKNODE_AUTH_POLICY.sectorPrefixes[sector])) return "Employee ID does not match the selected authorized sector."; if (password.length < 8) return "Your secure passphrase must contain at least 8 characters."; return ""; }
     function unlockDarkNode() { sessionStorage.setItem("darknode_access", JSON.stringify({ employee: document.getElementById("auth-employee-id").value.trim().toUpperCase(), sector: document.getElementById("auth-sector").value, issuedAt: Date.now() })); document.body.classList.add("authenticated"); setAuthMessage("Access verified. Establishing monitored session…", true); }
